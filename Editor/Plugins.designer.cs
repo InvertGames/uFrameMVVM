@@ -199,6 +199,7 @@ namespace Invert.uFrame.MVVM {
             container.Connectable<PropertiesChildItem,BindingsReference>();
             container.Connectable<CollectionsChildItem,BindingsReference>();
             container.Connectable<ViewNode,ViewComponentNode>();
+            container.Connectable<ComputedPropertyNode,TransitionsChildItem>();
             container.Connectable<Export,Subsystem>();
             container.Connectable<Export,Import>();
             container.Connectable<SceneTransitionsReference,SceneManagerNode>();

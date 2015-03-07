@@ -39,6 +39,8 @@ namespace Invert.uFrame.MVVM {
         public override void Loaded(uFrameContainer container)
         {
             base.Loaded(container);
+            Subsystem.HasSubNode<EnumNode>();
+            Element.HasSubNode<EnumNode>();
             BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
         }
     }

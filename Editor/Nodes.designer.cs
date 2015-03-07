@@ -133,7 +133,7 @@ namespace Invert.uFrame.MVVM {
     public partial interface IViewConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode {
+    public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode, ITransitionsConnectable {
         
         public override bool AllowMultipleInputs {
             get {

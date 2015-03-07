@@ -19,6 +19,9 @@ namespace Invert.uFrame.MVVM {
                         var bindableType = mapping.Instance as uFrameBindingType;
                         if (bindableType == null) continue;
                         if (!bindableType.CanBind(item)) continue;
+                        if (
+                            Bindings.FirstOrDefault(p => p.BindingName == mapping.Name && p.BindingType == bindableType) !=
+                            null) continue;
 
                         yield return new BindingsReference()
                         {

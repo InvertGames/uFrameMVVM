@@ -15,12 +15,8 @@ MonoBehaviour:
   _settingsValues: 
   _diagrams:
   - {fileID: 11400000, guid: afafbb260d676d341b3fa5d5946689b2, type: 2}
-  - {fileID: 11400000, guid: e2b1c54e55287bb4c9ccda2f3244a1bf, type: 2}
   _projectNamespace: Invert.MVVMTest
   _currentTabs:
   - _graphIdentifier: a77066af-349b-4573-b6a4-4def596dcf9f
-    _graphName: NewUnityGraphData
-    _path: []
-  - _graphIdentifier: 9d79d765-c092-4756-b453-beac78edab02
-    _graphName: NewUnityGraphData 1
+    _graphName: BasicGraph
     _path: []

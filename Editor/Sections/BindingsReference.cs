@@ -38,6 +38,11 @@ namespace Invert.uFrame.MVVM {
                 return string.Format(BindingType.DisplayFormat, SourceItem.Name);
             }
         }
+
+        public override string Group
+        {
+            get { return string.Format(BindingType.DisplayFormat, "{Item}"); }
+        }
     }
     
     public partial interface IBindingsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
