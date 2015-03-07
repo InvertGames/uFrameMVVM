@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1942191683, guid: 665e7007641162d49b570cba8a539e2d, type: 3}
+  m_Name: MVVMTest
+  m_EditorClassIdentifier: 
+  _settingsKeys: []
+  _settingsValues: 
+  _diagrams:
+  - {fileID: 11400000, guid: afafbb260d676d341b3fa5d5946689b2, type: 2}
+  - {fileID: 11400000, guid: e2b1c54e55287bb4c9ccda2f3244a1bf, type: 2}
+  _projectNamespace: Invert.MVVMTest
+  _currentTabs:
+  - _graphIdentifier: a77066af-349b-4573-b6a4-4def596dcf9f
+    _graphName: NewUnityGraphData
+    _path: []
+  - _graphIdentifier: 9d79d765-c092-4756-b453-beac78edab02
+    _graphName: NewUnityGraphData 1
+    _path: []
