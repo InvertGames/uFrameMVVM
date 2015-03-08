@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1328937199, guid: 019118f6de8965947b2d943bbe59c84b, type: 3}
-  m_Name: BasicGraph
+  m_Name: Basic
   m_EditorClassIdentifier: 
-  _jsonData: '{"Name":"BasicGraph", "Version":"1.501", "Identifier":"a77066af-349b-4573-b6a4-4def596dcf9f",
+  _jsonData: '{"Name":"Basic", "Version":"1.501", "Identifier":"a77066af-349b-4573-b6a4-4def596dcf9f",
     "Type":"Invert.uFrame.MVVM.MVVMGraph", "DocumentationMode":"false", "RootNode":{"_CLRType":"Invert.uFrame.MVVM.MVVMNode,
     Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-    "Name":"BasicGraph", "IsCollapsed":"false", "Identifier":"41219a81-20e9-4c8a-9507-e114614a0033",
+    "Name":"Basic", "IsCollapsed":"false", "Identifier":"41219a81-20e9-4c8a-9507-e114614a0033",
     "Items":[  ], "CollapsedValues":{"c67bb6a9-805f-459c-948c-9fb4fe24c5b7":"false",
     "1ce17f54-f67e-4f2d-b914-ebb9aff44941":"false", "da08d2b3-0007-4716-b547-a680d476ad08":"false",
     "23944900-bf98-49fe-8638-c0e878371d25":"false", "46c56a41-3cd5-4617-afc9-f3c01f6a1d43":"false"},
@@ -195,11 +195,13 @@ MonoBehaviour:
     "OutputIdentifier":"550d08fc-adbf-4eab-a424-8ab1ba61d6e8", "InputIdentifier":"54b4c9a8-0168-4df4-a668-9ec55c7205c2"},
     {"_CLRType":"ConnectionData, Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral,
     PublicKeyToken=null", "OutputIdentifier":"54b4c9a8-0168-4df4-a668-9ec55c7205c2",
-    "InputIdentifier":"a70f5663-a122-4707-8261-9e75b864456d"} ], "PositionData":{"_CLRType":"FilterPositionData,
+    "InputIdentifier":"a70f5663-a122-4707-8261-9e75b864456d"}, {"_CLRType":"ConnectionData,
     Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null",
-    "41219a81-20e9-4c8a-9507-e114614a0033":{"41219a81-20e9-4c8a-9507-e114614a0033":{"x":"60",
+    "OutputIdentifier":"4695f049-1e7a-45b3-a2b8-8f1bdf1f2f5f", "InputIdentifier":"4f29a394-a7ad-4ccd-8722-6d8afd47775f"}
+    ], "PositionData":{"_CLRType":"FilterPositionData, Invert.Core.GraphDesigner,
+    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "41219a81-20e9-4c8a-9507-e114614a0033":{"41219a81-20e9-4c8a-9507-e114614a0033":{"x":"60",
     "y":"50"}, "1ce17f54-f67e-4f2d-b914-ebb9aff44941":{"x":"50", "y":"230"}, "46c56a41-3cd5-4617-afc9-f3c01f6a1d43":{"x":"280",
-    "y":"150"}, "c67bb6a9-805f-459c-948c-9fb4fe24c5b7":{"x":"600", "y":"150"}}, "1ce17f54-f67e-4f2d-b914-ebb9aff44941":{"1ce17f54-f67e-4f2d-b914-ebb9aff44941":{"x":"70",
+    "y":"150"}, "c67bb6a9-805f-459c-948c-9fb4fe24c5b7":{"x":"410", "y":"150"}}, "1ce17f54-f67e-4f2d-b914-ebb9aff44941":{"1ce17f54-f67e-4f2d-b914-ebb9aff44941":{"x":"70",
     "y":"50"}, "8c62ad50-cbef-46c7-ab9e-4f925496d5cb":{"x":"210", "y":"170"}, "dfef34e1-b464-40ff-88ad-12f561401b4f":{"x":"480",
     "y":"140"}}, "8c62ad50-cbef-46c7-ab9e-4f925496d5cb":{"8c62ad50-cbef-46c7-ab9e-4f925496d5cb":{"x":"60",
     "y":"220"}, "224acf83-e017-4ae7-aa46-40dd8251e8a7":{"x":"480", "y":"90"}, "54b4c9a8-0168-4df4-a668-9ec55c7205c2":{"x":"400",
@@ -210,14 +212,13 @@ MonoBehaviour:
     "y":"260"}}, "46c56a41-3cd5-4617-afc9-f3c01f6a1d43":{"46c56a41-3cd5-4617-afc9-f3c01f6a1d43":{"x":"110",
     "y":"140"}}, "519cbe19-0f48-4fd7-ab61-573f0db49bf6":{"519cbe19-0f48-4fd7-ab61-573f0db49bf6":{"x":"0",
     "y":"0"}}}, "FilterState":{"_CLRType":"FilterState, Invert.Core.GraphDesigner,
-    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "FilterStack":[ "Core",
-    "Game" ]}, "Settings":{"_CLRType":"ElementDiagramSettings, Invert.Core.GraphDesigner,
-    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "CodeGenDisabled":"false",
-    "SnapSize":"10", "Snap":"true", "CodePathStrategyName":"Default", "GridLinesColor":{"r":"0.271",
-    "g":"0.271", "b":"0.271", "a":"1"}, "GridLinesColorSecondary":{"r":"0.169", "g":"0.169",
-    "b":"0.169", "a":"1"}, "AssociationLinkColor":{"r":"1", "g":"1", "b":"1", "a":"1"},
-    "DefinitionLinkColor":{"r":"0", "g":"1", "b":"1", "a":"1"}, "InheritanceLinkColor":{"r":"0",
-    "g":"1", "b":"0", "a":"1"}, "SceneManagerLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
-    "a":"1"}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5", "a":"1"}, "TransitionLinkColor":{"r":"1",
-    "g":"0.9215686", "b":"0.01568628", "a":"1"}, "ViewLinkColor":{"r":"0", "g":"0",
-    "b":"1", "a":"1"}, "RootNamespace":""}}'
+    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "FilterStack":[  ]}, "Settings":{"_CLRType":"ElementDiagramSettings,
+    Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null",
+    "CodeGenDisabled":"false", "SnapSize":"10", "Snap":"true", "CodePathStrategyName":"Default",
+    "GridLinesColor":{"r":"0.271", "g":"0.271", "b":"0.271", "a":"1"}, "GridLinesColorSecondary":{"r":"0.169",
+    "g":"0.169", "b":"0.169", "a":"1"}, "AssociationLinkColor":{"r":"1", "g":"1",
+    "b":"1", "a":"1"}, "DefinitionLinkColor":{"r":"0", "g":"1", "b":"1", "a":"1"},
+    "InheritanceLinkColor":{"r":"0", "g":"1", "b":"0", "a":"1"}, "SceneManagerLinkColor":{"r":"0.5",
+    "g":"0.5", "b":"0.5", "a":"1"}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
+    "a":"1"}, "TransitionLinkColor":{"r":"1", "g":"0.9215686", "b":"0.01568628", "a":"1"},
+    "ViewLinkColor":{"r":"0", "g":"0", "b":"1", "a":"1"}, "RootNamespace":""}}'

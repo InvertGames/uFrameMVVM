@@ -6,7 +6,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class ElementNode : ElementNodeBase, IViewConnectable, IInstancesConnectable {
+    public class ElementNode : ElementNodeBase, IViewConnectable, IInstancesConnectable, IClassRefactorable {
         
         public override void Validate(List<ErrorInfo> errors)
         {
@@ -130,6 +130,15 @@ namespace Invert.uFrame.MVVM {
         public override string ClassName
         {
             get { return this.Name + "ViewModel"; }
+        }
+
+        public IEnumerable<string> ClassNameFormats
+        {
+            get
+            {
+                yield return "{0}ViewModel";
+                yield return "{0}Controller";
+            }
         }
     }
     

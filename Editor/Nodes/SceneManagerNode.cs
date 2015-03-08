@@ -6,7 +6,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class SceneManagerNode : SceneManagerNodeBase {
+    public class SceneManagerNode : SceneManagerNodeBase , IClassRefactorable {
         public virtual IEnumerable<InstancesReference> ImportedItems
         {
             get { return Subsystem.AvailableInstances; }
@@ -44,6 +44,15 @@ namespace Invert.uFrame.MVVM {
                 errors.AddError("All transitions must have an end-point.");
             }
 
+        }
+
+        public IEnumerable<string> ClassNameFormats
+        {
+            get
+            {
+                yield return "{0}";
+                yield return "{0}Settings";
+            }
         }
     }
     
