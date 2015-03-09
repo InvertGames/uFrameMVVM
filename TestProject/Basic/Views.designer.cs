@@ -36,6 +36,11 @@ namespace Invert.MVVMTest {
         [UnityEngine.HideInInspector()]
         public Vector3 _Position;
         
+        [UnityEngine.SerializeField()]
+        [UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _Properties;
+        
         [UFToggleGroup("FirstName")]
         [UnityEngine.HideInInspector()]
         public bool _BindFirstName = true;
@@ -88,10 +93,10 @@ namespace Invert.MVVMTest {
             gameview.FirstName = this._FirstName;
             gameview.LastName = this._LastName;
             gameview.Position = this._Position;
+            gameview.Properties = this._Properties;
         }
         
         public override void Bind() {
-            base.Bind();
             if (_BindFirstName) {
                 this.BindProperty(this.Game.FirstNameProperty, this.FirstNameChanged, _FirstNameonlyWhenChanged);
             }

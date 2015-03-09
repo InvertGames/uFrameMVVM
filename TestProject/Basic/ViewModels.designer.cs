@@ -30,6 +30,8 @@ namespace Invert.MVVMTest {
         
         private P<Vector3> _PositionProperty;
         
+        private P<String> _PropertiesProperty;
+        
         private ModelCollection<BoxesViewModel> _Boxes;
         
         private ICommand _ChangeName;
@@ -92,6 +94,15 @@ namespace Invert.MVVMTest {
             }
         }
         
+        public virtual P<String> PropertiesProperty {
+            get {
+                return _PropertiesProperty;
+            }
+            set {
+                _PropertiesProperty = value;
+            }
+        }
+        
         public virtual String FullName {
             get {
                 return FullNameProperty.Value;
@@ -128,6 +139,15 @@ namespace Invert.MVVMTest {
             }
         }
         
+        public virtual String Properties {
+            get {
+                return PropertiesProperty.Value;
+            }
+            set {
+                PropertiesProperty.Value = value;
+            }
+        }
+        
         public virtual ModelCollection<BoxesViewModel> Boxes {
             get {
                 return _Boxes;
@@ -152,6 +172,7 @@ namespace Invert.MVVMTest {
             _FirstNameProperty = new P<String>(this, "FirstName");
             _LastNameProperty = new P<String>(this, "LastName");
             _PositionProperty = new P<Vector3>(this, "Position");
+            _PropertiesProperty = new P<String>(this, "Properties");
             _Boxes = new ModelCollection<BoxesViewModel>(this, "Boxes");
             _Boxes.CollectionChanged += BoxesCollectionChanged;
             _GameFlowProperty = new RootGameFlow(this, "GameFlow");
@@ -205,6 +226,8 @@ namespace Invert.MVVMTest {
             list.Add(new ViewModelPropertyInfo(_GameFlowProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_PositionProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_PropertiesProperty, false, false, false, false));
             list.Add(new ViewModelPropertyInfo(_Boxes, true, true, false, false));
         }
         
@@ -240,7 +263,6 @@ namespace Invert.MVVMTest {
         
         protected override void WireCommands(Controller controller) {
             base.WireCommands(controller);
-            var boxes = controller as BoxesController;
         }
         
         public override void Read(ISerializerStream stream) {

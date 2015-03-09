@@ -17,19 +17,19 @@ namespace Invert.MVVMTest {
     
     public class GameControllerBase : Controller {
         
-        private TestElementViewModel _TestElement;
+        private GameViewModel _Game;
         
         private GameController _GameController;
         
-        private TestElementController _TestElementController;
+        private BoxesController _BoxesController;
         
-        [InjectAttribute("TestElement")]
-        public TestElementViewModel TestElement {
+        [InjectAttribute("Game")]
+        public GameViewModel Game {
             get {
-                return _TestElement;
+                return _Game;
             }
             set {
-                _TestElement = value;
+                _Game = value;
             }
         }
         
@@ -44,12 +44,12 @@ namespace Invert.MVVMTest {
         }
         
         [Inject()]
-        public TestElementController TestElementController {
+        public BoxesController BoxesController {
             get {
-                return _TestElementController;
+                return _BoxesController;
             }
             set {
-                _TestElementController = value;
+                _BoxesController = value;
             }
         }
         
@@ -74,6 +74,42 @@ namespace Invert.MVVMTest {
     }
     
     public class BoxesControllerBase : Controller {
+        
+        private GameViewModel _Game;
+        
+        private GameController _GameController;
+        
+        private BoxesController _BoxesController;
+        
+        [InjectAttribute("Game")]
+        public GameViewModel Game {
+            get {
+                return _Game;
+            }
+            set {
+                _Game = value;
+            }
+        }
+        
+        [Inject()]
+        public GameController GameController {
+            get {
+                return _GameController;
+            }
+            set {
+                _GameController = value;
+            }
+        }
+        
+        [Inject()]
+        public BoxesController BoxesController {
+            get {
+                return _BoxesController;
+            }
+            set {
+                _BoxesController = value;
+            }
+        }
         
         public override void Initialize(ViewModel viewModel) {
             this.InitializeBoxes(((BoxesViewModel)(viewModel)));

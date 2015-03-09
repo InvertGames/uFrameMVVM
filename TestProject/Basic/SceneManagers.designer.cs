@@ -18,29 +18,13 @@ namespace Invert.MVVMTest {
     
     public class TestBase : SceneManager {
         
-        private TestElementViewModel _TestElement;
-        
         private GameViewModel _Game;
         
         private GameController _GameController;
         
-        private TestElementController _TestElementController;
-        
         private BoxesController _BoxesController;
         
         public TestSettings _TestSettings = new TestSettings();
-        [InjectAttribute("TestElement")]
-        public virtual TestElementViewModel TestElement {
-            get {
-                if (this._TestElement == null) {
-                    this._TestElement = CreateInstanceViewModel<TestElementViewModel>(TestElementController, "_TestElement");
-                }
-                return _TestElement;
-            }
-            set {
-            }
-        }
-        
         [InjectAttribute("Game")]
         public virtual GameViewModel Game {
             get {
@@ -67,19 +51,6 @@ namespace Invert.MVVMTest {
         }
         
         [InjectAttribute()]
-        public virtual TestElementController TestElementController {
-            get {
-                if (_TestElementController==null) {
-                    _TestElementController = new TestElementController() { Container = Container };
-                }
-                return _TestElementController;
-            }
-            set {
-                _TestElementController = value;
-            }
-        }
-        
-        [InjectAttribute()]
         public virtual BoxesController BoxesController {
             get {
                 if (_BoxesController==null) {
@@ -94,13 +65,10 @@ namespace Invert.MVVMTest {
         
         public override void Setup() {
             base.Setup();
-            Container.RegisterViewModel<TestElementViewModel>(TestElement, "TestElement");
             Container.RegisterViewModel<GameViewModel>(Game, "Game");
             Container.RegisterController<GameController>(GameController);
-            Container.RegisterController<TestElementController>(TestElementController);
             Container.RegisterController<BoxesController>(BoxesController);
             Container.InjectAll();
-            TestElementController.Initialize(TestElement);
             GameController.Initialize(Game);
         }
     }

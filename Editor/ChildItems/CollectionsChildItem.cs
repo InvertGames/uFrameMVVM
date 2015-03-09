@@ -7,6 +7,10 @@ namespace Invert.uFrame.MVVM {
     
     
     public class CollectionsChildItem : CollectionsChildItemBase {
+        public override string DefaultTypeName
+        {
+            get { return typeof(string).Name; }
+        }
     }
     
     public partial interface ICollectionsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

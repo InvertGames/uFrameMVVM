@@ -7,6 +7,10 @@ namespace Invert.uFrame.MVVM {
     
     
     public class PropertiesChildItem : PropertiesChildItemBase {
+        public override string DefaultTypeName
+        {
+            get { return typeof(string).Name; }
+        }
     }
     
     public partial interface IPropertiesConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

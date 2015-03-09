@@ -18,7 +18,7 @@ namespace Invert.uFrame.MVVM {
         public static Invert.Core.RegisteredInstance[] BindingTypes { get; set; }
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
             base.GetCommandsSelectionCommand();
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = true };
         }
         
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetPropertiesSelectionCommand() {
