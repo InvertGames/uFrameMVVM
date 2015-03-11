@@ -1,3 +1,5 @@
+using Invert.Core;
+
 namespace Invert.uFrame.MVVM {
     using System;
     using System.Collections;
@@ -16,12 +18,14 @@ namespace Invert.uFrame.MVVM {
                 {
                     foreach (var mapping in uFrameMVVM.BindingTypes)
                     {
+                        
                         var bindableType = mapping.Instance as uFrameBindingType;
                         if (bindableType == null) continue;
                         if (!bindableType.CanBind(item)) continue;
                         if (
-                            Bindings.FirstOrDefault(p => p.BindingName == mapping.Name && p.BindingType == bindableType) !=
-                            null) continue;
+                            Bindings.FirstOrDefault(p => p.BindingName == mapping.Name
+                                && p.BindingType == bindableType && p.SourceIdentifier == item.Identifier) != null)
+                            continue;
 
                         yield return new BindingsReference()
                         {

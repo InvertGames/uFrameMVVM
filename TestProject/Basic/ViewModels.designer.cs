@@ -13,247 +13,202 @@ namespace Invert.MVVMTest {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
+    using Invert.MVVMTest;
     
     
-    public class GameViewModelBase : ViewModel {
+    public class ScreenViewModelBase : ViewModel {
         
-        private System.IDisposable _FullNameDisposable;
+        private P<Boolean> _ActiveProperty;
         
-        private RootGameFlow _GameFlowProperty;
-        
-        private P<String> _FullNameProperty;
-        
-        private P<String> _FirstNameProperty;
-        
-        private P<String> _LastNameProperty;
-        
-        private P<Vector3> _PositionProperty;
-        
-        private P<String> _PropertiesProperty;
-        
-        private ModelCollection<BoxesViewModel> _Boxes;
-        
-        private ICommand _ChangeName;
-        
-        public GameViewModelBase(GameControllerBase controller, bool initialize = true) : 
+        public ScreenViewModelBase(ScreenControllerBase controller, bool initialize = true) : 
                 base(controller, initialize) {
         }
         
-        public virtual RootGameFlow GameFlowProperty {
+        public virtual P<Boolean> ActiveProperty {
             get {
-                return _GameFlowProperty;
+                return _ActiveProperty;
             }
             set {
-                _GameFlowProperty = value;
+                _ActiveProperty = value;
             }
         }
         
-        public virtual Invert.StateMachine.State GameFlow {
+        public virtual Boolean Active {
             get {
-                return GameFlowProperty.Value;
+                return ActiveProperty.Value;
             }
             set {
-                GameFlowProperty.Value = value;
-            }
-        }
-        
-        public virtual P<String> FullNameProperty {
-            get {
-                return _FullNameProperty;
-            }
-            set {
-                _FullNameProperty = value;
-            }
-        }
-        
-        public virtual P<String> FirstNameProperty {
-            get {
-                return _FirstNameProperty;
-            }
-            set {
-                _FirstNameProperty = value;
-            }
-        }
-        
-        public virtual P<String> LastNameProperty {
-            get {
-                return _LastNameProperty;
-            }
-            set {
-                _LastNameProperty = value;
-            }
-        }
-        
-        public virtual P<Vector3> PositionProperty {
-            get {
-                return _PositionProperty;
-            }
-            set {
-                _PositionProperty = value;
-            }
-        }
-        
-        public virtual P<String> PropertiesProperty {
-            get {
-                return _PropertiesProperty;
-            }
-            set {
-                _PropertiesProperty = value;
-            }
-        }
-        
-        public virtual String FullName {
-            get {
-                return FullNameProperty.Value;
-            }
-            set {
-                FullNameProperty.Value = value;
-            }
-        }
-        
-        public virtual String FirstName {
-            get {
-                return FirstNameProperty.Value;
-            }
-            set {
-                FirstNameProperty.Value = value;
-            }
-        }
-        
-        public virtual String LastName {
-            get {
-                return LastNameProperty.Value;
-            }
-            set {
-                LastNameProperty.Value = value;
-            }
-        }
-        
-        public virtual Vector3 Position {
-            get {
-                return PositionProperty.Value;
-            }
-            set {
-                PositionProperty.Value = value;
-            }
-        }
-        
-        public virtual String Properties {
-            get {
-                return PropertiesProperty.Value;
-            }
-            set {
-                PropertiesProperty.Value = value;
-            }
-        }
-        
-        public virtual ModelCollection<BoxesViewModel> Boxes {
-            get {
-                return _Boxes;
-            }
-            set {
-                _Boxes = value;
-            }
-        }
-        
-        public virtual ICommand ChangeName {
-            get {
-                return _ChangeName;
-            }
-            set {
-                _ChangeName = value;
+                ActiveProperty.Value = value;
             }
         }
         
         public override void Bind() {
             base.Bind();
-            _FullNameProperty = new P<String>(this, "FullName");
-            _FirstNameProperty = new P<String>(this, "FirstName");
-            _LastNameProperty = new P<String>(this, "LastName");
-            _PositionProperty = new P<Vector3>(this, "Position");
-            _PropertiesProperty = new P<String>(this, "Properties");
-            _Boxes = new ModelCollection<BoxesViewModel>(this, "Boxes");
-            _Boxes.CollectionChanged += BoxesCollectionChanged;
-            _GameFlowProperty = new RootGameFlow(this, "GameFlow");
-            ResetFullName();
+            _ActiveProperty = new P<Boolean>(this, "Active");
         }
         
         protected override void WireCommands(Controller controller) {
             base.WireCommands(controller);
-            var game = controller as GameController;
-            this.ChangeName = new CommandWithSender<GameViewModel>(this as GameViewModel, game.ChangeName);
-        }
-        
-        protected virtual void BoxesCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs args) {
         }
         
         public override void Read(ISerializerStream stream) {
             base.Read(stream);
-            this.FirstName = stream.DeserializeString("FirstName");;
-            this.LastName = stream.DeserializeString("LastName");;
-            this._GameFlowProperty.SetState(stream.DeserializeString("GameFlow"));
-            this.Position = stream.DeserializeVector3("Position");;
-            if (stream.DeepSerialize) {
-                this.Boxes.Clear();
-                this.Boxes.AddRange(stream.DeserializeObjectArray<BoxesViewModel>("Boxes"));
-            }
+            this.Active = stream.DeserializeBool("Active");;
         }
         
         public override void Write(ISerializerStream stream) {
             base.Write(stream);
-            stream.SerializeString("FirstName", this.FirstName);
-            stream.SerializeString("LastName", this.LastName);
-            stream.SerializeString("GameFlow", this.GameFlow.Name);;
-            stream.SerializeVector3("Position", this.Position);
-            if (stream.DeepSerialize) stream.SerializeArray("Boxes", this.Boxes);
+            stream.SerializeBool("Active", this.Active);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<ViewModelCommandInfo> list) {
             base.FillCommands(list);
-            list.Add(new ViewModelCommandInfo("ChangeName", ChangeName) { ParameterType = typeof(void) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<ViewModelPropertyInfo> list) {
             base.FillProperties(list);
-            // ComputedPropertyNode
-            list.Add(new ViewModelPropertyInfo(_FullNameProperty, false, false, false, true));
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_FirstNameProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_LastNameProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_GameFlowProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_PositionProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_PropertiesProperty, false, false, false, false));
-            list.Add(new ViewModelPropertyInfo(_Boxes, true, true, false, false));
-        }
-        
-        public virtual System.Collections.Generic.IEnumerable<IObservableProperty> GetFullNameDependents() {
-            yield return _FirstNameProperty;
-            yield return _LastNameProperty;
-            yield return _FirstNameProperty;
-            yield return _PositionProperty;
-            yield break;
-        }
-        
-        public virtual void ResetFullName() {
-            if (_FullNameDisposable != null) {
-                _FullNameDisposable.Dispose();
-            }
-            _FullNameDisposable = _FullNameProperty.ToComputed(ComputeFullName, this.GetFullNameDependents().ToArray()).DisposeWith(this);
-        }
-        
-        public virtual String ComputeFullName() {
-            return default(String);
+            list.Add(new ViewModelPropertyInfo(_ActiveProperty, false, false, false, false));
         }
     }
     
-    public class BoxesViewModelBase : ViewModel {
+    public class HeadTrainerViewModelBase : ViewModel {
         
-        public BoxesViewModelBase(BoxesControllerBase controller, bool initialize = true) : 
+        private LoginFlow _LoginFlowProperty;
+        
+        private P<ScreenViewModel> _CurrentScreenProperty;
+        
+        private ICommand _MiniCamp;
+        
+        private ICommand _DailyWorkout;
+        
+        private ICommand _BeginLogin;
+        
+        private ICommand _LoginCompleted;
+        
+        public HeadTrainerViewModelBase(HeadTrainerControllerBase controller, bool initialize = true) : 
+                base(controller, initialize) {
+        }
+        
+        public virtual LoginFlow LoginFlowProperty {
+            get {
+                return _LoginFlowProperty;
+            }
+            set {
+                _LoginFlowProperty = value;
+            }
+        }
+        
+        public virtual Invert.StateMachine.State LoginFlow {
+            get {
+                return LoginFlowProperty.Value;
+            }
+            set {
+                LoginFlowProperty.Value = value;
+            }
+        }
+        
+        public virtual P<ScreenViewModel> CurrentScreenProperty {
+            get {
+                return _CurrentScreenProperty;
+            }
+            set {
+                _CurrentScreenProperty = value;
+            }
+        }
+        
+        public virtual ScreenViewModel CurrentScreen {
+            get {
+                return CurrentScreenProperty.Value;
+            }
+            set {
+                CurrentScreenProperty.Value = value;
+            }
+        }
+        
+        public virtual ICommand MiniCamp {
+            get {
+                return _MiniCamp;
+            }
+            set {
+                _MiniCamp = value;
+            }
+        }
+        
+        public virtual ICommand DailyWorkout {
+            get {
+                return _DailyWorkout;
+            }
+            set {
+                _DailyWorkout = value;
+            }
+        }
+        
+        public virtual ICommand BeginLogin {
+            get {
+                return _BeginLogin;
+            }
+            set {
+                _BeginLogin = value;
+            }
+        }
+        
+        public virtual ICommand LoginCompleted {
+            get {
+                return _LoginCompleted;
+            }
+            set {
+                _LoginCompleted = value;
+            }
+        }
+        
+        public override void Bind() {
+            base.Bind();
+            _CurrentScreenProperty = new P<ScreenViewModel>(this, "CurrentScreen");
+            _LoginFlowProperty = new LoginFlow(this, "LoginFlow");
+        }
+        
+        protected override void WireCommands(Controller controller) {
+            base.WireCommands(controller);
+            var headtrainer = controller as HeadTrainerController;
+            this.MiniCamp = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.MiniCamp);
+            this.DailyWorkout = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.DailyWorkout);
+            this.BeginLogin = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.BeginLogin);
+            this.LoginCompleted = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.LoginCompleted);
+        }
+        
+        public override void Read(ISerializerStream stream) {
+            base.Read(stream);
+            this._LoginFlowProperty.SetState(stream.DeserializeString("LoginFlow"));
+            		if (stream.DeepSerialize) this.CurrentScreen = stream.DeserializeObject<ScreenViewModel>("CurrentScreen");;
+        }
+        
+        public override void Write(ISerializerStream stream) {
+            base.Write(stream);
+            stream.SerializeString("LoginFlow", this.LoginFlow.Name);;
+            if (stream.DeepSerialize) stream.SerializeObject("CurrentScreen", this.CurrentScreen);;
+        }
+        
+        protected override void FillCommands(System.Collections.Generic.List<ViewModelCommandInfo> list) {
+            base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("MiniCamp", MiniCamp) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("DailyWorkout", DailyWorkout) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("BeginLogin", BeginLogin) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("LoginCompleted", LoginCompleted) { ParameterType = typeof(void) });
+        }
+        
+        protected override void FillProperties(System.Collections.Generic.List<ViewModelPropertyInfo> list) {
+            base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_LoginFlowProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_CurrentScreenProperty, true, false, false, false));
+        }
+    }
+    
+    public class FormViewModelBase : ViewModel {
+        
+        public FormViewModelBase(FormControllerBase controller, bool initialize = true) : 
                 base(controller, initialize) {
         }
         

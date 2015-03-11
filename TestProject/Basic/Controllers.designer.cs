@@ -15,115 +15,180 @@ namespace Invert.MVVMTest {
     using System.Linq;
     
     
-    public class GameControllerBase : Controller {
-        
-        private GameViewModel _Game;
-        
-        private GameController _GameController;
-        
-        private BoxesController _BoxesController;
-        
-        [InjectAttribute("Game")]
-        public GameViewModel Game {
-            get {
-                return _Game;
-            }
-            set {
-                _Game = value;
-            }
-        }
-        
-        [Inject()]
-        public GameController GameController {
-            get {
-                return _GameController;
-            }
-            set {
-                _GameController = value;
-            }
-        }
-        
-        [Inject()]
-        public BoxesController BoxesController {
-            get {
-                return _BoxesController;
-            }
-            set {
-                _BoxesController = value;
-            }
-        }
+    public class ScreenControllerBase : Controller {
         
         public override void Initialize(ViewModel viewModel) {
-            this.InitializeGame(((GameViewModel)(viewModel)));
+            this.InitializeScreen(((ScreenViewModel)(viewModel)));
         }
         
-        public virtual GameViewModel CreateGame() {
-            return ((GameViewModel)(this.Create()));
+        public virtual ScreenViewModel CreateScreen() {
+            return ((ScreenViewModel)(this.Create()));
         }
         
         public override ViewModel CreateEmpty() {
-            return new GameViewModel(this);
+            return new ScreenViewModel(this);
         }
         
-        public virtual void InitializeGame(GameViewModel viewModel) {
-        }
-        
-        public virtual void ChangeName(GameViewModel viewModel) {
-            viewModel.GameFlowProperty.Transition("TestTrans");
+        public virtual void InitializeScreen(ScreenViewModel viewModel) {
         }
     }
     
-    public class BoxesControllerBase : Controller {
+    public class HeadTrainerControllerBase : Controller {
         
-        private GameViewModel _Game;
+        public override void Initialize(ViewModel viewModel) {
+            this.InitializeHeadTrainer(((HeadTrainerViewModel)(viewModel)));
+        }
         
-        private GameController _GameController;
+        public virtual HeadTrainerViewModel CreateHeadTrainer() {
+            return ((HeadTrainerViewModel)(this.Create()));
+        }
         
-        private BoxesController _BoxesController;
+        public override ViewModel CreateEmpty() {
+            return new HeadTrainerViewModel(this);
+        }
         
-        [InjectAttribute("Game")]
-        public GameViewModel Game {
+        public virtual void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
+        }
+        
+        public virtual void MiniCamp(HeadTrainerViewModel viewModel) {
+            viewModel.LoginFlowProperty.Transition("MiniCamp");
+        }
+        
+        public virtual void DailyWorkout(HeadTrainerViewModel viewModel) {
+            viewModel.LoginFlowProperty.Transition("DailyWorkout");
+        }
+        
+        public virtual void BeginLogin(HeadTrainerViewModel viewModel) {
+            viewModel.LoginFlowProperty.Transition("BeginLogin");
+        }
+        
+        public virtual void LoginCompleted(HeadTrainerViewModel viewModel) {
+        }
+    }
+    
+    public class FormControllerBase : Controller {
+        
+        private HeadTrainerViewModel _HeadTrainer;
+        
+        private ScreenController _ScreenController;
+        
+        private HeadTrainerController _HeadTrainerController;
+        
+        private FormController _FormController;
+        
+        private LoginScreenController _LoginScreenController;
+        
+        private LandingPageScreenController _LandingPageScreenController;
+        
+        private WellnessSurveyScreenController _WellnessSurveyScreenController;
+        
+        private ProgressScreenController _ProgressScreenController;
+        
+        private DailyWorkoutResultsScreenController _DailyWorkoutResultsScreenController;
+        
+        [InjectAttribute("HeadTrainer")]
+        public HeadTrainerViewModel HeadTrainer {
             get {
-                return _Game;
+                return _HeadTrainer;
             }
             set {
-                _Game = value;
+                _HeadTrainer = value;
             }
         }
         
         [Inject()]
-        public GameController GameController {
+        public ScreenController ScreenController {
             get {
-                return _GameController;
+                return _ScreenController;
             }
             set {
-                _GameController = value;
+                _ScreenController = value;
             }
         }
         
         [Inject()]
-        public BoxesController BoxesController {
+        public HeadTrainerController HeadTrainerController {
             get {
-                return _BoxesController;
+                return _HeadTrainerController;
             }
             set {
-                _BoxesController = value;
+                _HeadTrainerController = value;
+            }
+        }
+        
+        [Inject()]
+        public FormController FormController {
+            get {
+                return _FormController;
+            }
+            set {
+                _FormController = value;
+            }
+        }
+        
+        [Inject()]
+        public LoginScreenController LoginScreenController {
+            get {
+                return _LoginScreenController;
+            }
+            set {
+                _LoginScreenController = value;
+            }
+        }
+        
+        [Inject()]
+        public LandingPageScreenController LandingPageScreenController {
+            get {
+                return _LandingPageScreenController;
+            }
+            set {
+                _LandingPageScreenController = value;
+            }
+        }
+        
+        [Inject()]
+        public WellnessSurveyScreenController WellnessSurveyScreenController {
+            get {
+                return _WellnessSurveyScreenController;
+            }
+            set {
+                _WellnessSurveyScreenController = value;
+            }
+        }
+        
+        [Inject()]
+        public ProgressScreenController ProgressScreenController {
+            get {
+                return _ProgressScreenController;
+            }
+            set {
+                _ProgressScreenController = value;
+            }
+        }
+        
+        [Inject()]
+        public DailyWorkoutResultsScreenController DailyWorkoutResultsScreenController {
+            get {
+                return _DailyWorkoutResultsScreenController;
+            }
+            set {
+                _DailyWorkoutResultsScreenController = value;
             }
         }
         
         public override void Initialize(ViewModel viewModel) {
-            this.InitializeBoxes(((BoxesViewModel)(viewModel)));
+            this.InitializeForm(((FormViewModel)(viewModel)));
         }
         
-        public virtual BoxesViewModel CreateBoxes() {
-            return ((BoxesViewModel)(this.Create()));
+        public virtual FormViewModel CreateForm() {
+            return ((FormViewModel)(this.Create()));
         }
         
         public override ViewModel CreateEmpty() {
-            return new BoxesViewModel(this);
+            return new FormViewModel(this);
         }
         
-        public virtual void InitializeBoxes(BoxesViewModel viewModel) {
+        public virtual void InitializeForm(FormViewModel viewModel) {
         }
     }
 }

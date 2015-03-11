@@ -16,65 +16,161 @@ namespace Invert.MVVMTest {
     using UniRx;
     
     
-    public class TestBase : SceneManager {
+    public class HeadTrainerSceneBase : SceneManager {
         
-        private GameViewModel _Game;
+        private HeadTrainerViewModel _HeadTrainer;
         
-        private GameController _GameController;
+        private ScreenController _ScreenController;
         
-        private BoxesController _BoxesController;
+        private HeadTrainerController _HeadTrainerController;
         
-        public TestSettings _TestSettings = new TestSettings();
-        [InjectAttribute("Game")]
-        public virtual GameViewModel Game {
+        private FormController _FormController;
+        
+        private LoginScreenController _LoginScreenController;
+        
+        private LandingPageScreenController _LandingPageScreenController;
+        
+        private WellnessSurveyScreenController _WellnessSurveyScreenController;
+        
+        private ProgressScreenController _ProgressScreenController;
+        
+        private DailyWorkoutResultsScreenController _DailyWorkoutResultsScreenController;
+        
+        public HeadTrainerSceneSettings _HeadTrainerSceneSettings = new HeadTrainerSceneSettings();
+        [InjectAttribute("HeadTrainer")]
+        public virtual HeadTrainerViewModel HeadTrainer {
             get {
-                if (this._Game == null) {
-                    this._Game = CreateInstanceViewModel<GameViewModel>(GameController, "_Game");
+                if (this._HeadTrainer == null) {
+                    this._HeadTrainer = CreateInstanceViewModel<HeadTrainerViewModel>(HeadTrainerController, "HeadTrainer");
                 }
-                return _Game;
+                return _HeadTrainer;
             }
             set {
             }
         }
         
         [InjectAttribute()]
-        public virtual GameController GameController {
+        public virtual ScreenController ScreenController {
             get {
-                if (_GameController==null) {
-                    _GameController = new GameController() { Container = Container };
+                if (_ScreenController==null) {
+                    _ScreenController = Container.CreateInstance(typeof(ScreenController)) as ScreenController;;
                 }
-                return _GameController;
+                return _ScreenController;
             }
             set {
-                _GameController = value;
+                _ScreenController = value;
             }
         }
         
         [InjectAttribute()]
-        public virtual BoxesController BoxesController {
+        public virtual HeadTrainerController HeadTrainerController {
             get {
-                if (_BoxesController==null) {
-                    _BoxesController = new BoxesController() { Container = Container };
+                if (_HeadTrainerController==null) {
+                    _HeadTrainerController = Container.CreateInstance(typeof(HeadTrainerController)) as HeadTrainerController;;
                 }
-                return _BoxesController;
+                return _HeadTrainerController;
             }
             set {
-                _BoxesController = value;
+                _HeadTrainerController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual FormController FormController {
+            get {
+                if (_FormController==null) {
+                    _FormController = Container.CreateInstance(typeof(FormController)) as FormController;;
+                }
+                return _FormController;
+            }
+            set {
+                _FormController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual LoginScreenController LoginScreenController {
+            get {
+                if (_LoginScreenController==null) {
+                    _LoginScreenController = Container.CreateInstance(typeof(LoginScreenController)) as LoginScreenController;;
+                }
+                return _LoginScreenController;
+            }
+            set {
+                _LoginScreenController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual LandingPageScreenController LandingPageScreenController {
+            get {
+                if (_LandingPageScreenController==null) {
+                    _LandingPageScreenController = Container.CreateInstance(typeof(LandingPageScreenController)) as LandingPageScreenController;;
+                }
+                return _LandingPageScreenController;
+            }
+            set {
+                _LandingPageScreenController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual WellnessSurveyScreenController WellnessSurveyScreenController {
+            get {
+                if (_WellnessSurveyScreenController==null) {
+                    _WellnessSurveyScreenController = Container.CreateInstance(typeof(WellnessSurveyScreenController)) as WellnessSurveyScreenController;;
+                }
+                return _WellnessSurveyScreenController;
+            }
+            set {
+                _WellnessSurveyScreenController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual ProgressScreenController ProgressScreenController {
+            get {
+                if (_ProgressScreenController==null) {
+                    _ProgressScreenController = Container.CreateInstance(typeof(ProgressScreenController)) as ProgressScreenController;;
+                }
+                return _ProgressScreenController;
+            }
+            set {
+                _ProgressScreenController = value;
+            }
+        }
+        
+        [InjectAttribute()]
+        public virtual DailyWorkoutResultsScreenController DailyWorkoutResultsScreenController {
+            get {
+                if (_DailyWorkoutResultsScreenController==null) {
+                    _DailyWorkoutResultsScreenController = Container.CreateInstance(typeof(DailyWorkoutResultsScreenController)) as DailyWorkoutResultsScreenController;;
+                }
+                return _DailyWorkoutResultsScreenController;
+            }
+            set {
+                _DailyWorkoutResultsScreenController = value;
             }
         }
         
         public override void Setup() {
             base.Setup();
-            Container.RegisterViewModel<GameViewModel>(Game, "Game");
-            Container.RegisterController<GameController>(GameController);
-            Container.RegisterController<BoxesController>(BoxesController);
+            Container.RegisterViewModel<HeadTrainerViewModel>(HeadTrainer, "HeadTrainer");
+            Container.RegisterController<ScreenController>(ScreenController);
+            Container.RegisterController<HeadTrainerController>(HeadTrainerController);
+            Container.RegisterController<FormController>(FormController);
+            Container.RegisterController<LoginScreenController>(LoginScreenController);
+            Container.RegisterController<LandingPageScreenController>(LandingPageScreenController);
+            Container.RegisterController<WellnessSurveyScreenController>(WellnessSurveyScreenController);
+            Container.RegisterController<ProgressScreenController>(ProgressScreenController);
+            Container.RegisterController<DailyWorkoutResultsScreenController>(DailyWorkoutResultsScreenController);
             Container.InjectAll();
-            GameController.Initialize(Game);
+            HeadTrainerController.Initialize(HeadTrainer);
         }
     }
     
     [System.SerializableAttribute()]
-    public class TestSettingsBase : object {
+    public class HeadTrainerSceneSettingsBase : object {
         
         public string[] _Scenes;
     }

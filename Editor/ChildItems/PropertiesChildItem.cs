@@ -4,9 +4,10 @@ namespace Invert.uFrame.MVVM {
     using System.Collections.Generic;
     using System.Linq;
     using Invert.Core.GraphDesigner;
-    
-    
-    public class PropertiesChildItem : PropertiesChildItemBase {
+
+
+    public class PropertiesChildItem : PropertiesChildItemBase, ISubPropertiesConnectable
+    {
         public override string DefaultTypeName
         {
             get { return typeof(string).Name; }

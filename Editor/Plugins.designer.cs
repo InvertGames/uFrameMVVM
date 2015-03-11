@@ -173,7 +173,7 @@ namespace Invert.uFrame.MVVM {
             Subsystem.HasSubNode<ElementNode>();
             Subsystem.HasSubNode<SimpleClassNode>();
             SceneManager = container.AddNode<SceneManagerNode,SceneManagerNodeViewModel,SceneManagerNodeDrawer>("SceneManager");
-            SceneManager.Color(NodeColor.Black);
+            SceneManager.Color(NodeColor.Red);
             MVVM = container.AddGraph<MVVMGraph, MVVMNode>("MVVMGraph");
             MVVM.Color(NodeColor.Gray);
             MVVM.HasSubNode<SubsystemNode>();

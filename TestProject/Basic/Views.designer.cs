@@ -14,106 +14,68 @@ namespace Invert.MVVMTest {
     using System.Collections.Generic;
     using System.Linq;
     using UniRx;
-    using UnityEngine;
+    using Invert.MVVMTest;
     
     
-    public class GameViewBase : ViewBase {
-        
-        private System.IDisposable _PositionDisposable;
+    public class HeadTrainerViewBase : ViewBase {
         
         [UnityEngine.SerializeField()]
         [UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _FirstName;
+        public ViewBase _CurrentScreen;
         
-        [UnityEngine.SerializeField()]
-        [UFGroup("View Model Properties")]
+        [UFToggleGroup("LoginFlow")]
         [UnityEngine.HideInInspector()]
-        public String _LastName;
+        public bool _BindLoginFlow = true;
         
+        [UFGroup("LoginFlow")]
         [UnityEngine.SerializeField()]
-        [UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Vector3 _Position;
-        
-        [UnityEngine.SerializeField()]
-        [UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public String _Properties;
-        
-        [UFToggleGroup("FirstName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindFirstName = true;
-        
-        [UFGroup("FirstName")]
-        [UnityEngine.SerializeField()]
-        private bool _FirstNameonlyWhenChanged;
-        
-        [UFToggleGroup("Position")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindPosition = true;
-        
-        [UFGroup("Position")]
-        [UnityEngine.SerializeField()]
-        private bool _PositiononlyWhenChanged;
+        private bool _LoginFlowonlyWhenChanged;
         
         public override System.Type ViewModelType {
             get {
-                return typeof(GameViewModel);
+                return typeof(HeadTrainerViewModel);
             }
         }
         
-        public GameViewModel Game {
+        public HeadTrainerViewModel HeadTrainer {
             get {
-                return (GameViewModel)ViewModelObject;
+                return (HeadTrainerViewModel)ViewModelObject;
             }
-        }
-        
-        public virtual void ResetPosition() {
-            if (_PositionDisposable != null) {
-                _PositionDisposable.Dispose();
-            }
-            _PositionDisposable = GetPositionObservable().Subscribe(Game.PositionProperty).DisposeWith(this);
-        }
-        
-        protected virtual Vector3 CalculatePosition() {
-            return default(Vector3);
-        }
-        
-        protected virtual UniRx.IObservable<Vector3> GetPositionObservable() {
-            return this.UpdateAsObservable().Select(p=>CalculatePosition());
         }
         
         public override ViewModel CreateModel() {
-            return this.RequestViewModel(GameManager.Container.Resolve<GameController>());
+            return this.RequestViewModel(GameManager.Container.Resolve<HeadTrainerController>());
         }
         
         protected override void InitializeViewModel(ViewModel model) {
-            var gameview = ((GameViewModel)model);
-            gameview.FirstName = this._FirstName;
-            gameview.LastName = this._LastName;
-            gameview.Position = this._Position;
-            gameview.Properties = this._Properties;
+            var headtrainerview = ((HeadTrainerViewModel)model);
+            headtrainerview.CurrentScreen = this._CurrentScreen == null ? null : this._CurrentScreen.ViewModelObject as ScreenViewModel;
         }
         
         public override void Bind() {
-            if (_BindFirstName) {
-                this.BindProperty(this.Game.FirstNameProperty, this.FirstNameChanged, _FirstNameonlyWhenChanged);
+            if (_BindLoginFlow) {
+                this.BindProperty(this.HeadTrainer.LoginFlowProperty, this.LoginFlowChanged, _LoginFlowonlyWhenChanged);
             }
-            if (_BindPosition) {
-                this.BindProperty(this.Game.PositionProperty, this.PositionChanged, _PositiononlyWhenChanged);
-            }
-            ResetPosition();
         }
         
-        public virtual void FirstNameChanged(String arg1) {
+        public virtual void LoginFlowChanged(Invert.StateMachine.State State) {
         }
         
-        public virtual void PositionChanged(Vector3 arg1) {
+        public virtual void ExecuteMiniCamp() {
+            this.ExecuteCommand(HeadTrainer.MiniCamp);
         }
         
-        public virtual void ExecuteChangeName() {
-            this.ExecuteCommand(Game.ChangeName);
+        public virtual void ExecuteDailyWorkout() {
+            this.ExecuteCommand(HeadTrainer.DailyWorkout);
+        }
+        
+        public virtual void ExecuteBeginLogin() {
+            this.ExecuteCommand(HeadTrainer.BeginLogin);
+        }
+        
+        public virtual void ExecuteLoginCompleted() {
+            this.ExecuteCommand(HeadTrainer.LoginCompleted);
         }
     }
 }

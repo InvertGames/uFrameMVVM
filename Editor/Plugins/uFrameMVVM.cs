@@ -79,6 +79,7 @@ namespace Invert.uFrame.MVVM {
         public Func<IBindableTypedItem, bool> CanBind { get; set; }
         public static Type ObservablePropertyType { get; set; }
         public static Type UFGroupType { get; set; }
+        public static Type ICommandType { get; set; }
 
         public uFrameBindingType SetNameFormat(string format)
         {
@@ -147,6 +148,10 @@ namespace Invert.uFrame.MVVM {
                 else if (ObservablePropertyType.IsAssignableFrom(parameter.ParameterType))
                 {
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, propertyName)));
+                }
+                else if (ICommandType.IsAssignableFrom(parameter.ParameterType))
+                {
+                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, sourceItem.Name)));
                 }
                 else
                 {
