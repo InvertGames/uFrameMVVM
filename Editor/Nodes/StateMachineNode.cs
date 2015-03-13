@@ -10,7 +10,13 @@ namespace Invert.uFrame.MVVM {
         public override void Validate(List<ErrorInfo> errors)
         {
             base.Validate(errors);
-
+            if (Name.ToLower() == "startstate")
+            {
+                errors.AddError("StartState is reserved", Identifier, () =>
+                {
+                    Name = Graph.Name + "StartState";
+                });
+            }
             if (this.InputFrom<PropertiesChildItem>() == null)
             {
                 errors.AddWarning(string.Format("StateMachine {0} is not used.", Name), this.Identifier);

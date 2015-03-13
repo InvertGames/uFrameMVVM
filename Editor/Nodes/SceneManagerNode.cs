@@ -9,7 +9,7 @@ namespace Invert.uFrame.MVVM {
     public class SceneManagerNode : SceneManagerNodeBase , IClassRefactorable {
         public virtual IEnumerable<InstancesReference> ImportedItems
         {
-            get { return Subsystem.AvailableInstances; }
+            get { return Subsystem.AvailableInstances.Distinct(); }
         }
 
         public IEnumerable<ElementNode> IncludedElements
