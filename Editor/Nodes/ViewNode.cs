@@ -64,7 +64,7 @@ namespace Invert.uFrame.MVVM {
             get
             {
 
-                var elementNode = this.InputFrom<ElementNode>();
+                var elementNode = ElementInputSlot.InputFrom<ElementNode>();
                 if (elementNode == null)
                 {
                     var baseView = BaseNode as ViewNode;

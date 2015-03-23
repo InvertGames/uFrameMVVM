@@ -18,5 +18,5 @@ MonoBehaviour:
   _projectNamespace: Invert.uFrame.MVVM
   _currentTabs:
   - _graphIdentifier: 4ca87329-6d5d-4ae1-a808-4a6e5b1f4453
-    _graphName: MVVMSchema
+    _graphName: uFrameMVVM
     _path: []

@@ -34,6 +34,24 @@ namespace Invert.uFrame.MVVM {
     public partial interface IScenePropertiesConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
+    public class ElementBase : SingleInputSlot<IElementConnectable> {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+    }
+    
+    public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
     public class ImportBase : MultiInputSlot<IImportConnectable> {
         
         public override bool AllowMultipleInputs {

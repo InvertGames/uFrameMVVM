@@ -217,8 +217,8 @@ namespace Invert.uFrame.MVVM {
             Command.Color(NodeColor.Black);
             Service = container.AddNode<ServiceNode,ServiceNodeViewModel,ServiceNodeDrawer>("Service");
             Service.Color(NodeColor.Gray);
-            container.Connectable<ElementNode,ViewNode>();
             container.Connectable<ElementNode,InstancesReference>();
+            container.Connectable<ElementNode,Element>();
             container.Connectable<PropertiesChildItem,BindingsReference>();
             container.Connectable<PropertiesChildItem,SceneProperties>();
             container.Connectable<PropertiesChildItem,ComputedPropertyNode>();

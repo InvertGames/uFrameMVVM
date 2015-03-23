@@ -17,7 +17,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class ElementNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, Invert.Core.GraphDesigner.IClassTypeNode, IViewConnectable, IInstancesConnectable {
+    public class ElementNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, Invert.Core.GraphDesigner.IClassTypeNode, IInstancesConnectable, IElementConnectable {
         
         public virtual string ClassName {
             get {
@@ -105,6 +105,8 @@ namespace Invert.uFrame.MVVM {
         
         private SceneProperties _SceneProperties;
         
+        private Element _Element;
+        
         public override bool AllowMultipleInputs {
             get {
                 return false;
@@ -117,14 +119,14 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Bindings", SectionVisibility.Always, false, false, typeof(IBindingsConnectable), false, OrderIndex=1, HasPredefinedOptions=true, IsNewRow=true)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Bindings", SectionVisibility.Always, false, false, typeof(IBindingsConnectable), false, OrderIndex=2, HasPredefinedOptions=true, IsNewRow=true)]
         public virtual System.Collections.Generic.IEnumerable<BindingsReference> Bindings {
             get {
                 return ChildItems.OfType<BindingsReference>();
             }
         }
         
-        [Invert.Core.GraphDesigner.InputSlot("Scene Properties", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        [Invert.Core.GraphDesigner.InputSlot("Scene Properties", false, SectionVisibility.Always, OrderIndex=1, IsNewRow=true)]
         public virtual SceneProperties ScenePropertiesInputSlot {
             get {
                 if (_SceneProperties == null) {
@@ -136,6 +138,19 @@ namespace Invert.uFrame.MVVM {
                 _SceneProperties = value;
             }
         }
+        
+        [Invert.Core.GraphDesigner.InputSlot("Element", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual Element ElementInputSlot {
+            get {
+                if (_Element == null) {
+                    _Element = new Element() { Node = this };
+                }
+                return _Element;
+            }
+            set {
+                _Element = value;
+            }
+        }
     }
     
     public partial interface IViewConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
@@ -143,7 +158,6 @@ namespace Invert.uFrame.MVVM {
     
     public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode, ITransitionsConnectable {
         
-
         public override bool AllowMultipleInputs {
             get {
                 return false;
