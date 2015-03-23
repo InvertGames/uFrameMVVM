@@ -16,6 +16,24 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
+    public class HandlersReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IHandlersConnectable> {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+    }
+    
+    public partial interface IHandlersConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
     public class BindingsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IBindingsConnectable> {
         
         public override bool AllowMultipleInputs {

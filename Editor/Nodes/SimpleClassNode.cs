@@ -6,7 +6,11 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class SimpleClassNode : SimpleClassNodeBase {
+    public class SimpleClassNode : SimpleClassNodeBase,  IHandlersConnectable {
+        public override string ClassName
+        {
+            get { return this.Name; }
+        }
     }
     
     public partial interface ISimpleClassConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

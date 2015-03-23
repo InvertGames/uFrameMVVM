@@ -7,6 +7,10 @@ namespace Invert.uFrame.MVVM {
     
     
     public class StateNode : StateNodeBase {
+        public override bool AllowMultipleInputs
+        {
+            get { return true; }
+        }
     }
     
     public partial interface IStateConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

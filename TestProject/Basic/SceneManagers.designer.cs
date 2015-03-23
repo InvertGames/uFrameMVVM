@@ -16,49 +16,22 @@ namespace Invert.MVVMTest {
     using UniRx;
     
     
-    public class HeadTrainerSceneBase : SceneManager {
+    public class DemoSceneBase : SceneManager {
         
         private HeadTrainerViewModel _HeadTrainer;
         
-        private ScreenController _ScreenController;
-        
         private HeadTrainerController _HeadTrainerController;
         
-        private FormController _FormController;
-        
-        private LoginScreenController _LoginScreenController;
-        
-        private LandingPageScreenController _LandingPageScreenController;
-        
-        private WellnessSurveyScreenController _WellnessSurveyScreenController;
-        
-        private ProgressScreenController _ProgressScreenController;
-        
-        private DailyWorkoutResultsScreenController _DailyWorkoutResultsScreenController;
-        
-        public HeadTrainerSceneSettings _HeadTrainerSceneSettings = new HeadTrainerSceneSettings();
+        public DemoSceneSettings _DemoSceneSettings = new DemoSceneSettings();
         [InjectAttribute("HeadTrainer")]
         public virtual HeadTrainerViewModel HeadTrainer {
             get {
                 if (this._HeadTrainer == null) {
-                    this._HeadTrainer = CreateInstanceViewModel<HeadTrainerViewModel>(HeadTrainerController, "HeadTrainer");
+                    this._HeadTrainer = CreateInstanceViewModel<HeadTrainerViewModel>( "HeadTrainer");
                 }
                 return _HeadTrainer;
             }
             set {
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual ScreenController ScreenController {
-            get {
-                if (_ScreenController==null) {
-                    _ScreenController = Container.CreateInstance(typeof(ScreenController)) as ScreenController;;
-                }
-                return _ScreenController;
-            }
-            set {
-                _ScreenController = value;
             }
         }
         
@@ -75,102 +48,22 @@ namespace Invert.MVVMTest {
             }
         }
         
-        [InjectAttribute()]
-        public virtual FormController FormController {
-            get {
-                if (_FormController==null) {
-                    _FormController = Container.CreateInstance(typeof(FormController)) as FormController;;
-                }
-                return _FormController;
-            }
-            set {
-                _FormController = value;
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual LoginScreenController LoginScreenController {
-            get {
-                if (_LoginScreenController==null) {
-                    _LoginScreenController = Container.CreateInstance(typeof(LoginScreenController)) as LoginScreenController;;
-                }
-                return _LoginScreenController;
-            }
-            set {
-                _LoginScreenController = value;
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual LandingPageScreenController LandingPageScreenController {
-            get {
-                if (_LandingPageScreenController==null) {
-                    _LandingPageScreenController = Container.CreateInstance(typeof(LandingPageScreenController)) as LandingPageScreenController;;
-                }
-                return _LandingPageScreenController;
-            }
-            set {
-                _LandingPageScreenController = value;
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual WellnessSurveyScreenController WellnessSurveyScreenController {
-            get {
-                if (_WellnessSurveyScreenController==null) {
-                    _WellnessSurveyScreenController = Container.CreateInstance(typeof(WellnessSurveyScreenController)) as WellnessSurveyScreenController;;
-                }
-                return _WellnessSurveyScreenController;
-            }
-            set {
-                _WellnessSurveyScreenController = value;
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual ProgressScreenController ProgressScreenController {
-            get {
-                if (_ProgressScreenController==null) {
-                    _ProgressScreenController = Container.CreateInstance(typeof(ProgressScreenController)) as ProgressScreenController;;
-                }
-                return _ProgressScreenController;
-            }
-            set {
-                _ProgressScreenController = value;
-            }
-        }
-        
-        [InjectAttribute()]
-        public virtual DailyWorkoutResultsScreenController DailyWorkoutResultsScreenController {
-            get {
-                if (_DailyWorkoutResultsScreenController==null) {
-                    _DailyWorkoutResultsScreenController = Container.CreateInstance(typeof(DailyWorkoutResultsScreenController)) as DailyWorkoutResultsScreenController;;
-                }
-                return _DailyWorkoutResultsScreenController;
-            }
-            set {
-                _DailyWorkoutResultsScreenController = value;
-            }
-        }
-        
         public override void Setup() {
-            base.Setup();
             Container.RegisterViewModel<HeadTrainerViewModel>(HeadTrainer, "HeadTrainer");
-            Container.RegisterController<ScreenController>(ScreenController);
             Container.RegisterController<HeadTrainerController>(HeadTrainerController);
-            Container.RegisterController<FormController>(FormController);
-            Container.RegisterController<LoginScreenController>(LoginScreenController);
-            Container.RegisterController<LandingPageScreenController>(LandingPageScreenController);
-            Container.RegisterController<WellnessSurveyScreenController>(WellnessSurveyScreenController);
-            Container.RegisterController<ProgressScreenController>(ProgressScreenController);
-            Container.RegisterController<DailyWorkoutResultsScreenController>(DailyWorkoutResultsScreenController);
+            Container.RegisterViewModelManager<HeadTrainerViewModel>(new ViewModelManager<HeadTrainerViewModel>());
             Container.InjectAll();
-            HeadTrainerController.Initialize(HeadTrainer);
+        }
+        
+        // This method is called right after setup is invoked.
+        public override void Initialize() {
+            base.Initialize();
+            Publish(new ViewModelCreatedEvent() { ViewModel = HeadTrainer });;
         }
     }
     
     [System.SerializableAttribute()]
-    public class HeadTrainerSceneSettingsBase : object {
+    public class DemoSceneSettingsBase : object {
         
         public string[] _Scenes;
     }

@@ -13,78 +13,24 @@ namespace Invert.MVVMTest {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UniRx;
     
-    
-    public class ScreenControllerBase : Controller {
-        
-        public override void Initialize(ViewModel viewModel) {
-            this.InitializeScreen(((ScreenViewModel)(viewModel)));
-        }
-        
-        public virtual ScreenViewModel CreateScreen() {
-            return ((ScreenViewModel)(this.Create()));
-        }
-        
-        public override ViewModel CreateEmpty() {
-            return new ScreenViewModel(this);
-        }
-        
-        public virtual void InitializeScreen(ScreenViewModel viewModel) {
-        }
-    }
     
     public class HeadTrainerControllerBase : Controller {
         
-        public override void Initialize(ViewModel viewModel) {
-            this.InitializeHeadTrainer(((HeadTrainerViewModel)(viewModel)));
-        }
-        
-        public virtual HeadTrainerViewModel CreateHeadTrainer() {
-            return ((HeadTrainerViewModel)(this.Create()));
-        }
-        
-        public override ViewModel CreateEmpty() {
-            return new HeadTrainerViewModel(this);
-        }
-        
-        public virtual void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
-        }
-        
-        public virtual void MiniCamp(HeadTrainerViewModel viewModel) {
-            viewModel.LoginFlowProperty.Transition("MiniCamp");
-        }
-        
-        public virtual void DailyWorkout(HeadTrainerViewModel viewModel) {
-            viewModel.LoginFlowProperty.Transition("DailyWorkout");
-        }
-        
-        public virtual void BeginLogin(HeadTrainerViewModel viewModel) {
-            viewModel.LoginFlowProperty.Transition("BeginLogin");
-        }
-        
-        public virtual void LoginCompleted(HeadTrainerViewModel viewModel) {
-        }
-    }
-    
-    public class FormControllerBase : Controller {
+        private IViewModelManager _HeadTrainerManager;
         
         private HeadTrainerViewModel _HeadTrainer;
         
-        private ScreenController _ScreenController;
-        
-        private HeadTrainerController _HeadTrainerController;
-        
-        private FormController _FormController;
-        
-        private LoginScreenController _LoginScreenController;
-        
-        private LandingPageScreenController _LandingPageScreenController;
-        
-        private WellnessSurveyScreenController _WellnessSurveyScreenController;
-        
-        private ProgressScreenController _ProgressScreenController;
-        
-        private DailyWorkoutResultsScreenController _DailyWorkoutResultsScreenController;
+        [InjectAttribute("HeadTrainer")]
+        public IViewModelManager HeadTrainerManager {
+            get {
+                return _HeadTrainerManager;
+            }
+            set {
+                _HeadTrainerManager = value;
+            }
+        }
         
         [InjectAttribute("HeadTrainer")]
         public HeadTrainerViewModel HeadTrainer {
@@ -96,99 +42,56 @@ namespace Invert.MVVMTest {
             }
         }
         
-        [Inject()]
-        public ScreenController ScreenController {
+        public System.Collections.Generic.IEnumerable<HeadTrainerViewModel> HeadTrainerViewModels {
             get {
-                return _ScreenController;
-            }
-            set {
-                _ScreenController = value;
+                return HeadTrainerManager.OfType<HeadTrainerViewModel>();
             }
         }
         
-        [Inject()]
-        public HeadTrainerController HeadTrainerController {
-            get {
-                return _HeadTrainerController;
-            }
-            set {
-                _HeadTrainerController = value;
-            }
-        }
-        
-        [Inject()]
-        public FormController FormController {
-            get {
-                return _FormController;
-            }
-            set {
-                _FormController = value;
-            }
-        }
-        
-        [Inject()]
-        public LoginScreenController LoginScreenController {
-            get {
-                return _LoginScreenController;
-            }
-            set {
-                _LoginScreenController = value;
-            }
-        }
-        
-        [Inject()]
-        public LandingPageScreenController LandingPageScreenController {
-            get {
-                return _LandingPageScreenController;
-            }
-            set {
-                _LandingPageScreenController = value;
-            }
-        }
-        
-        [Inject()]
-        public WellnessSurveyScreenController WellnessSurveyScreenController {
-            get {
-                return _WellnessSurveyScreenController;
-            }
-            set {
-                _WellnessSurveyScreenController = value;
-            }
-        }
-        
-        [Inject()]
-        public ProgressScreenController ProgressScreenController {
-            get {
-                return _ProgressScreenController;
-            }
-            set {
-                _ProgressScreenController = value;
-            }
-        }
-        
-        [Inject()]
-        public DailyWorkoutResultsScreenController DailyWorkoutResultsScreenController {
-            get {
-                return _DailyWorkoutResultsScreenController;
-            }
-            set {
-                _DailyWorkoutResultsScreenController = value;
-            }
+        public override void Setup() {
+            // This is called when the controller is created
+            this.OnEvent<LoginCommand>().Subscribe(this.LoginHandler);
+            this.OnEvent<fdsaCommand>().Subscribe(this.fdsaHandler);
+            this.EventAggregator.OnViewModelCreated<HeadTrainerViewModel>().Subscribe(this.Initialize);;
+            this.EventAggregator.OnViewModelDestroyed<HeadTrainerViewModel>().Subscribe(this.DisposingViewModel);;
         }
         
         public override void Initialize(ViewModel viewModel) {
-            this.InitializeForm(((FormViewModel)(viewModel)));
+            base.Initialize(viewModel);
+            // This is called when a viewmodel is created
+            this.InitializeHeadTrainer(((HeadTrainerViewModel)(viewModel)));
         }
         
-        public virtual FormViewModel CreateForm() {
-            return ((FormViewModel)(this.Create()));
+        public virtual HeadTrainerViewModel CreateHeadTrainer() {
+            return ((HeadTrainerViewModel)(this.Create()));
         }
         
         public override ViewModel CreateEmpty() {
-            return new FormViewModel(this);
+            return new HeadTrainerViewModel(this.EventAggregator);
         }
         
-        public virtual void InitializeForm(FormViewModel viewModel) {
+        public virtual void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
+            // This is called when a HeadTrainerViewModel is created
+            HeadTrainerManager.Add(viewModel);
+        }
+        
+        public override void DisposingViewModel(ViewModel viewModel) {
+            base.DisposingViewModel(viewModel);
+            HeadTrainerManager.Remove(viewModel);
+        }
+        
+        public virtual void LoginHandler(LoginCommand command) {
+            this.Login(command.Sender as HeadTrainerViewModel, command);
+        }
+        
+        public virtual void fdsaHandler(fdsaCommand command) {
+            this.fdsa(command.Sender as HeadTrainerViewModel, command.Argument);
+        }
+        
+        public virtual void Login(HeadTrainerViewModel viewModel, LoginCommand arg) {
+        }
+        
+        public virtual void fdsa(HeadTrainerViewModel viewModel, Single arg) {
         }
     }
 }

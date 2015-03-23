@@ -16,6 +16,9 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
+    public class SubsystemGraphBase : GenericGraphData<SubsystemNode> {
+    }
+    
     public class MVVMGraphBase : GenericGraphData<MVVMNode> {
     }
     

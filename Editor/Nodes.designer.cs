@@ -13,6 +13,7 @@ namespace Invert.uFrame.MVVM {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using Invert.Core;
     using Invert.Core.GraphDesigner;
     
     
@@ -26,7 +27,13 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
+            }
+        }
+        
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleHandlers {
+            get {
+                return this.Project.AllGraphItems.OfType<IHandlersConnectable>().Cast<IItem>();
             }
         }
         
@@ -50,22 +57,29 @@ namespace Invert.uFrame.MVVM {
                 return ChildItems.OfType<CollectionsChildItem>();
             }
         }
+        
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
+        public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
+            get {
+                return ChildItems.OfType<HandlersReference>();
+            }
+        }
     }
     
     public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class SimpleClassNodeBase : Invert.Core.GraphDesigner.GenericNode {
+    public class SimpleClassNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, Invert.Core.GraphDesigner.IClassTypeNode {
         
-        public override bool AllowMultipleInputs {
+        public virtual string ClassName {
             get {
-                return true;
+                return this.Name;
             }
         }
         
-        public override bool AllowMultipleOutputs {
+        public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -87,29 +101,23 @@ namespace Invert.uFrame.MVVM {
     public partial interface ISimpleClassConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ViewNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, Invert.Core.GraphDesigner.IClassTypeNode, IViewComponentConnectable {
+    public class ViewNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, IViewComponentConnectable {
         
         private SceneProperties _SceneProperties;
         
-        public virtual string ClassName {
-            get {
-                return this.Name;
-            }
-        }
-        
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<IBindingsConnectable> PossibleBindings {
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleBindings {
             get {
-                return this.Project.AllGraphItems.OfType<IBindingsConnectable>();
+                return this.Project.AllGraphItems.OfType<IBindingsConnectable>().Cast<IItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Bindings", SectionVisibility.Always, false, false, typeof(IBindingsConnectable), false, OrderIndex=0, HasPredefinedOptions=true, IsNewRow=true)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Bindings", SectionVisibility.Always, false, false, typeof(IBindingsConnectable), false, OrderIndex=1, HasPredefinedOptions=true, IsNewRow=true)]
         public virtual System.Collections.Generic.IEnumerable<BindingsReference> Bindings {
             get {
                 return ChildItems.OfType<BindingsReference>();
@@ -135,9 +143,10 @@ namespace Invert.uFrame.MVVM {
     
     public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode, ITransitionsConnectable {
         
+
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -147,9 +156,9 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<ISubPropertiesConnectable> PossibleSubProperties {
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleSubProperties {
             get {
-                return this.Project.AllGraphItems.OfType<ISubPropertiesConnectable>();
+                return this.Project.AllGraphItems.OfType<ISubPropertiesConnectable>().Cast<IItem>();
             }
         }
         
@@ -172,7 +181,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -182,13 +191,13 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<IInstancesConnectable> PossibleInstances {
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleInstances {
             get {
-                return this.Project.AllGraphItems.OfType<IInstancesConnectable>();
+                return this.Project.AllGraphItems.OfType<IInstancesConnectable>().Cast<IItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Instances", SectionVisibility.Always, false, false, typeof(IInstancesConnectable), true, OrderIndex=1, HasPredefinedOptions=false, IsNewRow=true)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Instances", SectionVisibility.Always, true, false, typeof(IInstancesConnectable), true, OrderIndex=1, HasPredefinedOptions=false, IsNewRow=true)]
         public virtual System.Collections.Generic.IEnumerable<InstancesReference> Instances {
             get {
                 return ChildItems.OfType<InstancesReference>();
@@ -237,7 +246,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -247,9 +256,9 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<ISceneTransitionsConnectable> PossibleSceneTransitions {
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleSceneTransitions {
             get {
-                return this.Project.AllGraphItems.OfType<ISceneTransitionsConnectable>();
+                return this.Project.AllGraphItems.OfType<ISceneTransitionsConnectable>().Cast<IItem>();
             }
         }
         
@@ -281,7 +290,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -307,7 +316,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -345,7 +354,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -355,9 +364,9 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<IStateTransitionsConnectable> PossibleStateTransitions {
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleStateTransitions {
             get {
-                return this.Project.AllGraphItems.OfType<IStateTransitionsConnectable>();
+                return this.Project.AllGraphItems.OfType<IStateTransitionsConnectable>().Cast<IItem>();
             }
         }
         
@@ -376,7 +385,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return true;
+                return false;
             }
         }
         
@@ -388,5 +397,68 @@ namespace Invert.uFrame.MVVM {
     }
     
     public partial interface IViewComponentConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class CommandNodeBase : Invert.Core.GraphDesigner.GenericInheritableNode, Invert.Core.GraphDesigner.IClassTypeNode {
+        
+        public virtual string ClassName {
+            get {
+                return this.Name;
+            }
+        }
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return false;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
+            get {
+                return ChildItems.OfType<PropertiesChildItem>();
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
+            get {
+                return ChildItems.OfType<CollectionsChildItem>();
+            }
+        }
+    }
+    
+    public partial interface ICommandConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class ServiceNodeBase : Invert.Core.GraphDesigner.GenericNode {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return false;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+        
+        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleHandlers {
+            get {
+                return this.Project.AllGraphItems.OfType<IHandlersConnectable>().Cast<IItem>();
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
+        public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
+            get {
+                return ChildItems.OfType<HandlersReference>();
+            }
+        }
+    }
+    
+    public partial interface IServiceConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
 }

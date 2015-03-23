@@ -14,7 +14,7 @@ namespace Invert.MVVMTest {
     using System.Collections.Generic;
     using System.Linq;
     using UniRx;
-    using Invert.MVVMTest;
+    using UnityEngine;
     
     
     public class HeadTrainerViewBase : ViewBase {
@@ -22,15 +22,45 @@ namespace Invert.MVVMTest {
         [UnityEngine.SerializeField()]
         [UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public ViewBase _CurrentScreen;
+        public String _FirstName;
         
-        [UFToggleGroup("LoginFlow")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindLoginFlow = true;
-        
-        [UFGroup("LoginFlow")]
         [UnityEngine.SerializeField()]
-        private bool _LoginFlowonlyWhenChanged;
+        [UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _LastName;
+        
+        [UFToggleGroup("FirstName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindFirstName = true;
+        
+        [UFGroup("FirstName")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_FirstNameinput")]
+        private UnityEngine.UI.InputField _FirstNameInput;
+        
+        [UFToggleGroup("Login")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLogin = true;
+        
+        [UFGroup("Login")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_Loginbutton")]
+        private UnityEngine.UI.Button _LoginButton;
+        
+        [UFToggleGroup("LastName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLastName = true;
+        
+        [UFGroup("LastName")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_LastNameinput")]
+        private UnityEngine.UI.InputField _LastNameInput;
+        
+        public override string DefaultIdentifier {
+            get {
+                return "HeadTrainer";
+            }
+        }
         
         public override System.Type ViewModelType {
             get {
@@ -45,37 +75,41 @@ namespace Invert.MVVMTest {
         }
         
         public override ViewModel CreateModel() {
-            return this.RequestViewModel(GameManager.Container.Resolve<HeadTrainerController>());
+            return this.RequestViewModel();
         }
         
         protected override void InitializeViewModel(ViewModel model) {
+            base.InitializeViewModel(model);
             var headtrainerview = ((HeadTrainerViewModel)model);
-            headtrainerview.CurrentScreen = this._CurrentScreen == null ? null : this._CurrentScreen.ViewModelObject as ScreenViewModel;
+            headtrainerview.FirstName = this._FirstName;
+            headtrainerview.LastName = this._LastName;
         }
         
         public override void Bind() {
-            if (_BindLoginFlow) {
-                this.BindProperty(this.HeadTrainer.LoginFlowProperty, this.LoginFlowChanged, _LoginFlowonlyWhenChanged);
+            base.Bind();
+            if (_BindFirstName) {
+                this.BindInputFieldToProperty(_FirstNameInput, this.HeadTrainer.FirstNameProperty);
+            }
+            if (_BindLogin) {
+                this.BindButtonToCommand(_LoginButton, this.HeadTrainer.Login);
+            }
+            if (_BindLastName) {
+                this.BindInputFieldToProperty(_LastNameInput, this.HeadTrainer.LastNameProperty);
             }
         }
         
-        public virtual void LoginFlowChanged(Invert.StateMachine.State State) {
+        public virtual void ExecuteLogin(LoginCommand command) {
+            command.Sender = HeadTrainer;
+            HeadTrainer.Login.OnNext(command);
         }
         
-        public virtual void ExecuteMiniCamp() {
-            this.ExecuteCommand(HeadTrainer.MiniCamp);
+        public virtual void Executefdsa(fdsaCommand command) {
+            command.Sender = HeadTrainer;
+            HeadTrainer.fdsa.OnNext(command);
         }
         
-        public virtual void ExecuteDailyWorkout() {
-            this.ExecuteCommand(HeadTrainer.DailyWorkout);
-        }
-        
-        public virtual void ExecuteBeginLogin() {
-            this.ExecuteCommand(HeadTrainer.BeginLogin);
-        }
-        
-        public virtual void ExecuteLoginCompleted() {
-            this.ExecuteCommand(HeadTrainer.LoginCompleted);
+        public virtual void Executefdsa(Single arg) {
+            HeadTrainer.fdsa.OnNext(new fdsaCommand() { Sender = HeadTrainer, Argument = arg });
         }
     }
 }

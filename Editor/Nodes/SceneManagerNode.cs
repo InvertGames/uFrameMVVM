@@ -4,9 +4,18 @@ namespace Invert.uFrame.MVVM {
     using System.Collections.Generic;
     using System.Linq;
     using Invert.Core.GraphDesigner;
-    
-    
+
     public class SceneManagerNode : SceneManagerNodeBase , IClassRefactorable {
+        public override bool AllowInputs
+        {
+            get { return true; }
+        }
+
+        public override bool AllowOutputs
+        {
+            get { return false; }
+        }
+
         public virtual IEnumerable<InstancesReference> ImportedItems
         {
             get { return Subsystem.AvailableInstances.Distinct(); }

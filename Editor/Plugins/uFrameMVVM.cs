@@ -2,6 +2,7 @@ using System.CodeDom;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Invert.uFrame.MVVM {
     using System;
@@ -39,18 +40,22 @@ namespace Invert.uFrame.MVVM {
         public override void Loaded(uFrameContainer container)
         {
             base.Loaded(container);
+            Subsystem.HasSubNode<TypeReferenceNode>();
+            Element.HasSubNode<TypeReferenceNode>();
             Subsystem.HasSubNode<EnumNode>();
             Element.HasSubNode<EnumNode>();
             BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
+
+            
         }
     }
     public static class uFramePluginContainerExtensions
     {
-        public static uFrameBindingType AddBindingMethod(this IUFrameContainer container, Type type, MethodInfo method, Func<IBindableTypedItem, bool> canBind)
+        public static uFrameBindingType AddBindingMethod(this IUFrameContainer container, Type type, MethodInfo method, Func<ITypedItem, bool> canBind)
         {
             return AddBindingMethod(container, new uFrameBindingType(type, method, canBind), method.Name);
         }
-        public static uFrameBindingType AddBindingMethod(this IUFrameContainer container, Type type, string methodName, Func<IBindableTypedItem, bool> canBind)
+        public static uFrameBindingType AddBindingMethod(this IUFrameContainer container, Type type, string methodName, Func<ITypedItem, bool> canBind)
         {
             return AddBindingMethod(container, new uFrameBindingType(type, methodName, canBind), methodName);
         }
@@ -76,8 +81,9 @@ namespace Invert.uFrame.MVVM {
         public string Description { get; set; }
         public Type Type { get; set; }
         public MethodInfo MethodInfo { get; set; }
-        public Func<IBindableTypedItem, bool> CanBind { get; set; }
+        public Func<ITypedItem, bool> CanBind { get; set; }
         public static Type ObservablePropertyType { get; set; }
+        public static Type ObservableCollectionType { get; set; }
         public static Type UFGroupType { get; set; }
         public static Type ICommandType { get; set; }
 
@@ -97,7 +103,7 @@ namespace Invert.uFrame.MVVM {
             HandlerImplementation = implement;
             return this;
         }
-        public uFrameBindingType(Type type, string methodFormat, Func<IBindableTypedItem, bool> canBind)
+        public uFrameBindingType(Type type, string methodFormat, Func<ITypedItem, bool> canBind)
         {
             Type = type;
             CanBind = canBind;
@@ -109,7 +115,7 @@ namespace Invert.uFrame.MVVM {
             }
         }
 
-        public uFrameBindingType(Type type, MethodInfo methodInfo, Func<IBindableTypedItem, bool> canBind)
+        public uFrameBindingType(Type type, MethodInfo methodInfo, Func<ITypedItem, bool> canBind)
         {
             Type = type;
             MethodInfo = methodInfo;
@@ -145,6 +151,10 @@ namespace Invert.uFrame.MVVM {
                         HandlerImplementation(new BindingHandlerArgs() { View = elementView, SourceItem = sourceItem, Method = method, Decleration = context });
                     }
                 }
+                else if (typeof(ICollection).IsAssignableFrom(parameter.ParameterType))
+                {
+                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, sourceItem.Name)));
+                }
                 else if (ObservablePropertyType.IsAssignableFrom(parameter.ParameterType))
                 {
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, propertyName)));
@@ -155,11 +165,17 @@ namespace Invert.uFrame.MVVM {
                 }
                 else
                 {
-                    var field = context._private_(parameter.ParameterType, "_{0}{1}", name, parameter.Name);
+                    var parameterName = parameter.Name.Substring(0, 1).ToUpper() + parameter.Name.Substring(1);
+                    var field = context._private_(parameter.ParameterType, "_{0}{1}", name, parameterName);
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(UFGroupType),
                         new CodeAttributeArgument(new CodePrimitiveExpression(name))));
+
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof(SerializeField))));
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(field.Name));
+
+                    field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof(FormerlySerializedAsAttribute)),
+                        new CodeAttributeArgument(new CodePrimitiveExpression(string.Format("_{0}{1}",name, parameter.Name)))));
+                 
                 }
             }
             return methodInvoke;

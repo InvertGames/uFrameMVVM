@@ -1,17 +1,31 @@
-namespace Invert.uFrame.MVVM {
+using Invert.Core;
+
+namespace Invert.uFrame.MVVM
+{
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Invert.Core.GraphDesigner;
-    
-    
-    public class ElementNode : ElementNodeBase, IViewConnectable, IInstancesConnectable, IClassRefactorable {
-        
+
+
+    public class ElementNode : ElementNodeBase, IViewConnectable, IInstancesConnectable, IClassRefactorable
+    {
+        public IEnumerable<ElementNode> RelatedElements
+        {
+            get
+            {
+                return this.GetParentNodes()
+                    .OfType<SubsystemNode>()
+                    .SelectMany(p => p.GetContainingNodesInProject(p.Project))
+                    .OfType<ElementNode>()
+                    .Distinct();
+            }
+        }
         public override void Validate(List<ErrorInfo> errors)
         {
             base.Validate(errors);
-            var ps = ChildItemsWithInherited.ToArray();
+            var ps = ChildItemsWithInherited.OfType<ITypedItem>().ToArray();
             foreach (var p1 in ps)
             {
                 foreach (var p2 in ps)
@@ -22,7 +36,6 @@ namespace Invert.uFrame.MVVM {
                     }
                 }
             }
-
         }
 
         public virtual System.Collections.Generic.IEnumerable<ComputedPropertyNode> ComputedProperties
@@ -34,14 +47,55 @@ namespace Invert.uFrame.MVVM {
                     .Distinct();
             }
         }
+        public IEnumerable<InstancesReference> RegisteredInstances
+        {
+            get
+            {
+                return
+                    Graph.AllGraphItems.OfType<InstancesReference>().Where(p => p.SourceIdentifier == this.Identifier);
+            }
+        }
+        public override IEnumerable<IItem> PossibleHandlers
+        {
+            get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p => !(p is CommandNode)).Cast<IItem>(); }
+        }
         public IEnumerable<ITypedItem> AllProperties
         {
             get
             {
                 foreach (var item in ComputedProperties)
                     yield return item;
-                foreach (var item in Properties)
+                foreach (var item in LocalProperties)
                     yield return item;
+            }
+        }
+
+        //public override IEnumerable<IHandlersConnectable> PossibleHandlers
+        //{
+        //    get { return base.PossibleHandlers; }
+        //}
+
+        public IEnumerable<ITypedItem> BindableProperties
+        {
+            get
+            {
+                foreach (var item in ComputedProperties)
+                    yield return item;
+                foreach (var item in LocalProperties)
+                    yield return item;
+                foreach (var item in LocalCollections)
+                    yield return item;
+                foreach (var item in LocalCommands)
+                    yield return item;
+
+                var baseElement = BaseNode as ElementNode;
+                if (baseElement != null)
+                {
+                    foreach (var item in baseElement.BindableProperties)
+                    {
+                        yield return item;
+                    }
+                }
             }
         }
         public IEnumerable<ITypedItem> AllPropertiesWithInherited
@@ -63,75 +117,109 @@ namespace Invert.uFrame.MVVM {
             }
         }
 
-        //[Invert.Core.GraphDesigner.ProxySection("Properties", SectionVisibility.Always, OrderIndex = 1)]
-        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> InheritedProperties
+        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex = 0, IsNewRow = true)]
+        public override System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties
         {
             get
             {
-                var baseElement = BaseNode as ElementNode;
-                if (baseElement != null)
+                if (Graph.CurrentFilter == this)
                 {
-                    foreach (var property in baseElement.InheritedProperties)
+                    var baseElement = BaseNode as ElementNode;
+                    if (baseElement != null)
                     {
-                        yield return property;
+                        foreach (var property in baseElement.Properties)
+                        {
+                            yield return property;
+                        }
+                    }
+                    else
+                    {
+
                     }
                 }
-                else
-                {
-
-                }
-                foreach (var item in Properties)
+                foreach (var item in LocalProperties)
                 {
                     yield return item;
                 }
             }
         }
 
-        //[Invert.Core.GraphDesigner.ProxySection("Collections", SectionVisibility.Always, OrderIndex = 2)]
-        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> InheritedCollections
+        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex = 1, IsNewRow = true)]
+        public override System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections
         {
             get
             {
-                var baseElement = BaseNode as ElementNode;
-                if (baseElement != null)
+                if (Graph.CurrentFilter == this)
                 {
-                    foreach (var property in baseElement.InheritedCollections)
+                    var baseElement = BaseNode as ElementNode;
+                    if (baseElement != null)
                     {
-                        yield return property;
+                        foreach (var property in baseElement.Collections)
+                        {
+                            yield return property;
+                        }
                     }
                 }
-                foreach (var item in Collections)
+                foreach (var item in LocalCollections)
                 {
                     yield return item;
                 }
             }
         }
-        //[Invert.Core.GraphDesigner.ProxySection("Commands", SectionVisibility.Always, OrderIndex = 3)]
-        public virtual System.Collections.Generic.IEnumerable<CommandsChildItem> InheritedCommands
+        [Invert.Core.GraphDesigner.Section("Commands", SectionVisibility.Always, OrderIndex = 3, IsNewRow = true)]
+        public override System.Collections.Generic.IEnumerable<CommandsChildItem> Commands
         {
             get
             {
-                var baseElement = BaseNode as ElementNode;
-                if (baseElement != null)
+                if (Graph.CurrentFilter == this)
                 {
-
-                    foreach (var property in baseElement.InheritedCommands)
+                    var baseElement = BaseNode as ElementNode;
+                    if (baseElement != null)
                     {
-                        yield return property;
+
+                        foreach (var property in baseElement.Commands)
+                        {
+                            yield return property;
+                        }
                     }
                 }
-                foreach (var item in Commands)
+                foreach (var item in LocalCommands)
                 {
                     yield return item;
                 }
             }
         }
 
+        public IEnumerable<ITypedItem> AllCommandHandlers
+        {
+            get
+            {
+                foreach (var item in LocalCommands)
+                {
+                    yield return item;
+                }
+                foreach (var item in Handlers.Where(p=>p.SourceItem is CommandsChildItem))
+                {
+                    yield return item.SourceItem as CommandsChildItem;
+                }
+            }
+        }
+        public IEnumerable<PropertiesChildItem> LocalProperties
+        {
+            get { return PersistedItems.OfType<PropertiesChildItem>(); }
+        }
+        public IEnumerable<CollectionsChildItem> LocalCollections
+        {
+            get { return PersistedItems.OfType<CollectionsChildItem>(); }
+        }
+        public IEnumerable<CommandsChildItem> LocalCommands
+        {
+            get { return PersistedItems.OfType<CommandsChildItem>(); }
+        }
         public override string ClassName
         {
             get { return this.Name + "ViewModel"; }
         }
-
         public IEnumerable<string> ClassNameFormats
         {
             get
@@ -141,7 +229,8 @@ namespace Invert.uFrame.MVVM {
             }
         }
     }
-    
-    public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+
+    public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable
+    {
     }
 }

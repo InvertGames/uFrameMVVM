@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1942191683, guid: 665e7007641162d49b570cba8a539e2d, type: 3}
+  m_Name: uFrameMVVMProject
+  m_EditorClassIdentifier: 
+  _settingsKeys: []
+  _settingsValues: 
+  _diagrams:
+  - {fileID: 11400000, guid: 080a19c20f7f5034bb5a5cd75c74d632, type: 2}
+  _projectNamespace: Invert.uFrame.MVVM
+  _currentTabs:
+  - _graphIdentifier: 4ca87329-6d5d-4ae1-a808-4a6e5b1f4453
+    _graphName: MVVMSchema
+    _path: []

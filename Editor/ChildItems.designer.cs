@@ -16,7 +16,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class CommandsChildItemBase : GenericTypedChildItem, IBindingsConnectable, ITransitionsConnectable, ISceneTransitionsConnectable {
+    public class CommandsChildItemBase : GenericTypedChildItem, IBindingsConnectable, ITransitionsConnectable, ISceneTransitionsConnectable, IHandlersConnectable {
         
         public override bool AllowMultipleInputs {
             get {

@@ -1,40 +1,34 @@
 using System.Diagnostics;
-using Invert.StateMachine;
-using UniRx;
 
 namespace Invert.MVVMTest {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UniRx;
     
     
     public class HeadTrainerController : HeadTrainerControllerBase {
         
-        public override void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
-            base.InitializeHeadTrainer(viewModel);
-
-            viewModel.LoginFlowProperty.Subscribe(
-                delegate(State _)
-            {
-                var name = _.GetType().Name.Replace("State", "Screen");
-               
-                var controller = GameManager.Container.Resolve<Controller>(string.Format("{0}Controller", name));
-                if (controller != null)
-                {
-                   
-                    var vm = controller.Create();
-                    viewModel.CurrentScreen = vm as ScreenViewModel;
-                }
-            });
-        }
-
-        public override void BeginLogin(HeadTrainerViewModel viewModel)
-        {
-            base.BeginLogin(viewModel);
-            viewModel.LoginFlowProperty.Transition("MiniCamp");
-            
+        public override void Setup() {
+            base.Setup();
+        
         }
         
+        public override void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
+            base.InitializeHeadTrainer(viewModel);
+            viewModel.FirstName = "BLABLABLABLA";
+            UnityEngine.Debug.Log("YOYOYO");
+            // This is called when a HeadTrainerViewModel is created
+        }
+        
+        public override void Login(HeadTrainerViewModel viewModel, LoginCommand loginCommand) {
+            base.Login(viewModel,loginCommand);
+            viewModel.FirstName = "YUPYUPYUP";
+        }
+        
+        public override void LoginHandler(LoginCommand command) {
+            base.LoginHandler(command);
+        }
     }
 }

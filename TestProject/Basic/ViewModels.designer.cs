@@ -13,227 +13,112 @@ namespace Invert.MVVMTest {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Invert.MVVMTest;
+    using UnityEngine;
     
     
-    public class ScreenViewModelBase : ViewModel {
+    public partial class HeadTrainerViewModelBase : ViewModel {
         
-        private P<Boolean> _ActiveProperty;
+        private P<String> _FirstNameProperty;
         
-        public ScreenViewModelBase(ScreenControllerBase controller, bool initialize = true) : 
-                base(controller, initialize) {
+        private P<String> _LastNameProperty;
+        
+        private Signal<LoginCommand> _Login;
+        
+        private Signal<fdsaCommand> _fdsa;
+        
+        public HeadTrainerViewModelBase(IEventAggregator aggregator) : 
+                base(aggregator) {
         }
         
-        public virtual P<Boolean> ActiveProperty {
+        public virtual P<String> FirstNameProperty {
             get {
-                return _ActiveProperty;
+                return _FirstNameProperty;
             }
             set {
-                _ActiveProperty = value;
+                _FirstNameProperty = value;
             }
         }
         
-        public virtual Boolean Active {
+        public virtual P<String> LastNameProperty {
             get {
-                return ActiveProperty.Value;
+                return _LastNameProperty;
             }
             set {
-                ActiveProperty.Value = value;
+                _LastNameProperty = value;
+            }
+        }
+        
+        public virtual String FirstName {
+            get {
+                return FirstNameProperty.Value;
+            }
+            set {
+                FirstNameProperty.Value = value;
+            }
+        }
+        
+        public virtual String LastName {
+            get {
+                return LastNameProperty.Value;
+            }
+            set {
+                LastNameProperty.Value = value;
+            }
+        }
+        
+        public virtual Signal<LoginCommand> Login {
+            get {
+                return _Login;
+            }
+            set {
+                _Login = value;
+            }
+        }
+        
+        public virtual Signal<fdsaCommand> fdsa {
+            get {
+                return _fdsa;
+            }
+            set {
+                _fdsa = value;
             }
         }
         
         public override void Bind() {
             base.Bind();
-            _ActiveProperty = new P<Boolean>(this, "Active");
-        }
-        
-        protected override void WireCommands(Controller controller) {
-            base.WireCommands(controller);
+            this.Login = new Signal<LoginCommand>(this, this.Aggregator);
+            this.fdsa = new Signal<fdsaCommand>(this, this.Aggregator);
+            _FirstNameProperty = new P<String>(this, "FirstName");
+            _LastNameProperty = new P<String>(this, "LastName");
         }
         
         public override void Read(ISerializerStream stream) {
             base.Read(stream);
-            this.Active = stream.DeserializeBool("Active");;
         }
         
         public override void Write(ISerializerStream stream) {
             base.Write(stream);
-            stream.SerializeBool("Active", this.Active);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("Login", Login) { ParameterType = typeof(LoginCommand) });
+            list.Add(new ViewModelCommandInfo("fdsa", fdsa) { ParameterType = typeof(Single) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<ViewModelPropertyInfo> list) {
             base.FillProperties(list);
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_ActiveProperty, false, false, false, false));
+            list.Add(new ViewModelPropertyInfo(_FirstNameProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_LastNameProperty, false, false, false, false));
         }
     }
     
-    public class HeadTrainerViewModelBase : ViewModel {
+    public partial class HeadTrainerViewModel {
         
-        private LoginFlow _LoginFlowProperty;
-        
-        private P<ScreenViewModel> _CurrentScreenProperty;
-        
-        private ICommand _MiniCamp;
-        
-        private ICommand _DailyWorkout;
-        
-        private ICommand _BeginLogin;
-        
-        private ICommand _LoginCompleted;
-        
-        public HeadTrainerViewModelBase(HeadTrainerControllerBase controller, bool initialize = true) : 
-                base(controller, initialize) {
-        }
-        
-        public virtual LoginFlow LoginFlowProperty {
-            get {
-                return _LoginFlowProperty;
-            }
-            set {
-                _LoginFlowProperty = value;
-            }
-        }
-        
-        public virtual Invert.StateMachine.State LoginFlow {
-            get {
-                return LoginFlowProperty.Value;
-            }
-            set {
-                LoginFlowProperty.Value = value;
-            }
-        }
-        
-        public virtual P<ScreenViewModel> CurrentScreenProperty {
-            get {
-                return _CurrentScreenProperty;
-            }
-            set {
-                _CurrentScreenProperty = value;
-            }
-        }
-        
-        public virtual ScreenViewModel CurrentScreen {
-            get {
-                return CurrentScreenProperty.Value;
-            }
-            set {
-                CurrentScreenProperty.Value = value;
-            }
-        }
-        
-        public virtual ICommand MiniCamp {
-            get {
-                return _MiniCamp;
-            }
-            set {
-                _MiniCamp = value;
-            }
-        }
-        
-        public virtual ICommand DailyWorkout {
-            get {
-                return _DailyWorkout;
-            }
-            set {
-                _DailyWorkout = value;
-            }
-        }
-        
-        public virtual ICommand BeginLogin {
-            get {
-                return _BeginLogin;
-            }
-            set {
-                _BeginLogin = value;
-            }
-        }
-        
-        public virtual ICommand LoginCompleted {
-            get {
-                return _LoginCompleted;
-            }
-            set {
-                _LoginCompleted = value;
-            }
-        }
-        
-        public override void Bind() {
-            base.Bind();
-            _CurrentScreenProperty = new P<ScreenViewModel>(this, "CurrentScreen");
-            _LoginFlowProperty = new LoginFlow(this, "LoginFlow");
-        }
-        
-        protected override void WireCommands(Controller controller) {
-            base.WireCommands(controller);
-            var headtrainer = controller as HeadTrainerController;
-            this.MiniCamp = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.MiniCamp);
-            this.DailyWorkout = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.DailyWorkout);
-            this.BeginLogin = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.BeginLogin);
-            this.LoginCompleted = new CommandWithSender<HeadTrainerViewModel>(this as HeadTrainerViewModel, headtrainer.LoginCompleted);
-        }
-        
-        public override void Read(ISerializerStream stream) {
-            base.Read(stream);
-            this._LoginFlowProperty.SetState(stream.DeserializeString("LoginFlow"));
-            		if (stream.DeepSerialize) this.CurrentScreen = stream.DeserializeObject<ScreenViewModel>("CurrentScreen");;
-        }
-        
-        public override void Write(ISerializerStream stream) {
-            base.Write(stream);
-            stream.SerializeString("LoginFlow", this.LoginFlow.Name);;
-            if (stream.DeepSerialize) stream.SerializeObject("CurrentScreen", this.CurrentScreen);;
-        }
-        
-        protected override void FillCommands(System.Collections.Generic.List<ViewModelCommandInfo> list) {
-            base.FillCommands(list);
-            list.Add(new ViewModelCommandInfo("MiniCamp", MiniCamp) { ParameterType = typeof(void) });
-            list.Add(new ViewModelCommandInfo("DailyWorkout", DailyWorkout) { ParameterType = typeof(void) });
-            list.Add(new ViewModelCommandInfo("BeginLogin", BeginLogin) { ParameterType = typeof(void) });
-            list.Add(new ViewModelCommandInfo("LoginCompleted", LoginCompleted) { ParameterType = typeof(void) });
-        }
-        
-        protected override void FillProperties(System.Collections.Generic.List<ViewModelPropertyInfo> list) {
-            base.FillProperties(list);
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_LoginFlowProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_CurrentScreenProperty, true, false, false, false));
-        }
-    }
-    
-    public class FormViewModelBase : ViewModel {
-        
-        public FormViewModelBase(FormControllerBase controller, bool initialize = true) : 
-                base(controller, initialize) {
-        }
-        
-        public override void Bind() {
-            base.Bind();
-        }
-        
-        protected override void WireCommands(Controller controller) {
-            base.WireCommands(controller);
-        }
-        
-        public override void Read(ISerializerStream stream) {
-            base.Read(stream);
-        }
-        
-        public override void Write(ISerializerStream stream) {
-            base.Write(stream);
-        }
-        
-        protected override void FillCommands(System.Collections.Generic.List<ViewModelCommandInfo> list) {
-            base.FillCommands(list);
-        }
-        
-        protected override void FillProperties(System.Collections.Generic.List<ViewModelPropertyInfo> list) {
-            base.FillProperties(list);
+        public HeadTrainerViewModel(IEventAggregator aggregator) : 
+                base(aggregator) {
         }
     }
 }

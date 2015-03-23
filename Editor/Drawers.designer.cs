@@ -85,4 +85,18 @@ namespace Invert.uFrame.MVVM {
                 base(viewModel) {
         }
     }
+    
+    public class CommandNodeDrawerBase : GenericNodeDrawer<CommandNode,CommandNodeViewModel> {
+        
+        public CommandNodeDrawerBase(CommandNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
+    
+    public class ServiceNodeDrawerBase : GenericNodeDrawer<ServiceNode,ServiceNodeViewModel> {
+        
+        public ServiceNodeDrawerBase(ServiceNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
 }

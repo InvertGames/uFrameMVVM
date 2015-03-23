@@ -84,4 +84,18 @@ namespace Invert.uFrame.MVVM {
                 base(graphItemObject, diagramViewModel) {
         }
     }
+    
+    public class CommandNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<CommandNode> {
+        
+        public CommandNodeViewModelBase(CommandNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
+    
+    public class ServiceNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<ServiceNode> {
+        
+        public ServiceNodeViewModelBase(ServiceNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
 }

@@ -17,7 +17,7 @@ namespace Invert.uFrame.MVVM {
                     Name = Graph.Name + "StartState";
                 });
             }
-            if (this.InputFrom<PropertiesChildItem>() == null)
+            if (this.ReferenceOf<PropertiesChildItem>() == null)
             {
                 errors.AddWarning(string.Format("StateMachine {0} is not used.", Name), this.Identifier);
             }

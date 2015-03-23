@@ -7,6 +7,15 @@ namespace Invert.uFrame.MVVM {
     
     
     public class SubsystemNode : SubsystemNodeBase {
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
+
+        public override bool AllowOutputs
+        {
+            get { return false; }
+        }
 
         public virtual IEnumerable<InstancesReference> AvailableInstances
         {

@@ -7,6 +7,14 @@ namespace Invert.uFrame.MVVM {
     
     
     public class CollectionsChildItem : CollectionsChildItemBase {
+        public override bool CanOutputTo(IConnectable input)
+        {
+            if (this.OutputTo<IClassTypeNode>() != null)
+            {
+                return false;
+            }
+            return base.CanOutputTo(input);
+        }
         public override string DefaultTypeName
         {
             get { return typeof(string).Name; }

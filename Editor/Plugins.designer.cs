@@ -39,6 +39,10 @@ namespace Invert.uFrame.MVVM {
         
         private Invert.Core.GraphDesigner.NodeConfig<ViewComponentNode> _ViewComponent;
         
+        private Invert.Core.GraphDesigner.NodeConfig<CommandNode> _Command;
+        
+        private Invert.Core.GraphDesigner.NodeConfig<ServiceNode> _Service;
+        
         public Invert.Core.GraphDesigner.NodeConfig<ElementNode> Element {
             get {
                 return _Element;
@@ -129,6 +133,24 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
+        public Invert.Core.GraphDesigner.NodeConfig<CommandNode> Command {
+            get {
+                return _Command;
+            }
+            set {
+                _Command = value;
+            }
+        }
+        
+        public Invert.Core.GraphDesigner.NodeConfig<ServiceNode> Service {
+            get {
+                return _Service;
+            }
+            set {
+                _Service = value;
+            }
+        }
+        
         public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
@@ -144,6 +166,7 @@ namespace Invert.uFrame.MVVM {
         public override void Initialize(Invert.Core.uFrameContainer container) {
             container.RegisterInstance<IEditorCommand>(GetCommandsSelectionCommand(), typeof(CommandsChildItem).Name + "TypeSelection");;
             container.AddTypeItem<CommandsChildItem>();
+            container.AddItem<HandlersReference>();
             container.RegisterInstance<IEditorCommand>(GetPropertiesSelectionCommand(), typeof(PropertiesChildItem).Name + "TypeSelection");;
             container.AddTypeItem<PropertiesChildItem>();
             container.RegisterInstance<IEditorCommand>(GetCollectionsSelectionCommand(), typeof(CollectionsChildItem).Name + "TypeSelection");;
@@ -161,30 +184,39 @@ namespace Invert.uFrame.MVVM {
             Element.HasSubNode<ComputedPropertyNode>();
             Element.HasSubNode<StateMachineNode>();
             Element.HasSubNode<ViewComponentNode>();
+            Element.HasSubNode<CommandNode>();
             SimpleClass = container.AddNode<SimpleClassNode,SimpleClassNodeViewModel,SimpleClassNodeDrawer>("SimpleClass");
-            SimpleClass.Color(NodeColor.Gray);
+            SimpleClass.Inheritable();
+            SimpleClass.Color(NodeColor.DarkDarkGray);
             View = container.AddNode<ViewNode,ViewNodeViewModel,ViewNodeDrawer>("View");
             View.Inheritable();
             View.Color(NodeColor.Blue);
             ComputedProperty = container.AddNode<ComputedPropertyNode,ComputedPropertyNodeViewModel,ComputedPropertyNodeDrawer>("ComputedProperty");
             ComputedProperty.Color(NodeColor.Green);
-            Subsystem = container.AddNode<SubsystemNode,SubsystemNodeViewModel,SubsystemNodeDrawer>("Subsystem");
-            Subsystem.Color(NodeColor.DarkDarkGray);
+            Subsystem = container.AddGraph<SubsystemGraph, SubsystemNode>("SubsystemGraph");
+            Subsystem.Color(NodeColor.Purple);
             Subsystem.HasSubNode<ElementNode>();
             Subsystem.HasSubNode<SimpleClassNode>();
+            Subsystem.HasSubNode<CommandNode>();
+            Subsystem.HasSubNode<ServiceNode>();
             SceneManager = container.AddNode<SceneManagerNode,SceneManagerNodeViewModel,SceneManagerNodeDrawer>("SceneManager");
-            SceneManager.Color(NodeColor.Red);
+            SceneManager.Color(NodeColor.Orange);
             MVVM = container.AddGraph<MVVMGraph, MVVMNode>("MVVMGraph");
             MVVM.Color(NodeColor.Gray);
             MVVM.HasSubNode<SubsystemNode>();
             MVVM.HasSubNode<SceneManagerNode>();
             StateMachine = container.AddGraph<StateMachineGraph, StateMachineNode>("StateMachineGraph");
-            StateMachine.Color(NodeColor.Purple);
+            StateMachine.Color(NodeColor.Orange);
             StateMachine.HasSubNode<StateNode>();
             State = container.AddNode<StateNode,StateNodeViewModel,StateNodeDrawer>("State");
             State.Color(NodeColor.Green);
             ViewComponent = container.AddNode<ViewComponentNode,ViewComponentNodeViewModel,ViewComponentNodeDrawer>("ViewComponent");
             ViewComponent.Color(NodeColor.Orange);
+            Command = container.AddNode<CommandNode,CommandNodeViewModel,CommandNodeDrawer>("Command");
+            Command.Inheritable();
+            Command.Color(NodeColor.Black);
+            Service = container.AddNode<ServiceNode,ServiceNodeViewModel,ServiceNodeDrawer>("Service");
+            Service.Color(NodeColor.Gray);
             container.Connectable<ElementNode,ViewNode>();
             container.Connectable<ElementNode,InstancesReference>();
             container.Connectable<PropertiesChildItem,BindingsReference>();
@@ -196,6 +228,7 @@ namespace Invert.uFrame.MVVM {
             container.Connectable<CommandsChildItem,BindingsReference>();
             container.Connectable<CommandsChildItem,TransitionsChildItem>();
             container.Connectable<CommandsChildItem,SceneTransitionsReference>();
+            container.Connectable<CommandsChildItem,HandlersReference>();
             container.Connectable<PropertiesChildItem,BindingsReference>();
             container.Connectable<CollectionsChildItem,BindingsReference>();
             container.Connectable<ViewNode,ViewComponentNode>();

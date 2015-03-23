@@ -9,12 +9,12 @@ namespace Invert.uFrame.MVVM {
     
     
     public class ViewNode : ViewNodeBase, IViewComponentConnectable {
-        public override IEnumerable<IBindingsConnectable> PossibleBindings
+        public override IEnumerable<IItem> PossibleBindings
         {
             get
             {
                 //yield break;
-                foreach (var item in Element.PersistedItems.OfType<IBindableTypedItem>())
+                foreach (var item in Element.BindableProperties)
                 {
                     foreach (var mapping in uFrameMVVM.BindingTypes)
                     {
@@ -87,7 +87,7 @@ namespace Invert.uFrame.MVVM {
         {
             get
             {
-                return ScenePropertiesInputSlot.InputsFrom<PropertiesChildItem>();
+                return ScenePropertiesInputSlot.InputsFrom<PropertiesChildItem>().Distinct();
             }
         }
 

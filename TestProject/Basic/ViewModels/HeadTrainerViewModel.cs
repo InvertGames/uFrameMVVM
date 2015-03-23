@@ -3,18 +3,13 @@ namespace Invert.MVVMTest {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UnityEngine;
     
     
-    public class HeadTrainerViewModel : HeadTrainerViewModelBase {
-        
-        public HeadTrainerViewModel(HeadTrainerControllerBase controller, bool initialize = true) : 
-                base(controller, initialize) {
-        }
+    public partial class HeadTrainerViewModel : HeadTrainerViewModelBase {
         
         public override void Bind() {
             base.Bind();
-            
         }
-        
     }
 }
