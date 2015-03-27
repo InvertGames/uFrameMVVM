@@ -6,15 +6,15 @@ namespace Invert.MVVMTest {
     using System.Collections.Generic;
     using System.Linq;
     using UniRx;
-    
-    
+
+
     public class HeadTrainerController : HeadTrainerControllerBase {
-        
-        public override void Setup() {
+        public override void Setup()
+        {
             base.Setup();
-        
+           
         }
-        
+
         public override void InitializeHeadTrainer(HeadTrainerViewModel viewModel) {
             base.InitializeHeadTrainer(viewModel);
             viewModel.FirstName = "BLABLABLABLA";

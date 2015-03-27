@@ -7,6 +7,12 @@ namespace Invert.uFrame.MVVM {
     
     
     public class Subsystem : SubsystemBase {
+        public override string Name
+        {
+            get { return "Subsystem"; }
+            set { base.Name = value; }
+        }
+
         public override bool AllowMultipleInputs
         {
             get { return false; }

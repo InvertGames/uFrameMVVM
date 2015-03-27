@@ -52,7 +52,7 @@ namespace Invert.uFrame.MVVM {
                         .FirstOrDefault(p => p.GetContainingNodes(this.Project).Contains(this)) as ElementNode;
                     if (node != null)
                     {
-                        Graph.AddConnection(node, this);
+                        Graph.AddConnection(node, this.ElementInputSlot);
                     }
 
                 });

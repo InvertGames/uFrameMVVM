@@ -11,6 +11,8 @@ namespace Invert.MVVMTest {
         
         protected override void InitializeViewModel(ViewModel model) {
             base.InitializeViewModel(model);
+
+         
         }
         
         public override void Bind() {

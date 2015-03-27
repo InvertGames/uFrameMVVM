@@ -31,4 +31,7 @@ namespace Invert.MVVMTest {
     
     public class LoginCommand : ViewModelCommand {
     }
+    
+    public partial class ChangeNameCommand : ViewModelCommand {
+    }
 }

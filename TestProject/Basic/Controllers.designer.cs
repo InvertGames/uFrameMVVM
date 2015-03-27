@@ -94,4 +94,63 @@ namespace Invert.MVVMTest {
         public virtual void fdsa(HeadTrainerViewModel viewModel, Single arg) {
         }
     }
+    
+    public class GameContextControllerBase : Controller {
+        
+        private IViewModelManager _GameContextManager;
+        
+        [InjectAttribute("GameContext")]
+        public IViewModelManager GameContextManager {
+            get {
+                return _GameContextManager;
+            }
+            set {
+                _GameContextManager = value;
+            }
+        }
+        
+        public System.Collections.Generic.IEnumerable<GameContextViewModel> GameContextViewModels {
+            get {
+                return GameContextManager.OfType<GameContextViewModel>();
+            }
+        }
+        
+        public override void Setup() {
+            // This is called when the controller is created
+            this.OnEvent<ChangeNameCommand>().Subscribe(this.ChangeNameHandler);
+            this.EventAggregator.OnViewModelCreated<GameContextViewModel>().Subscribe(this.Initialize);;
+            this.EventAggregator.OnViewModelDestroyed<GameContextViewModel>().Subscribe(this.DisposingViewModel);;
+        }
+        
+        public override void Initialize(ViewModel viewModel) {
+            base.Initialize(viewModel);
+            // This is called when a viewmodel is created
+            this.InitializeGameContext(((GameContextViewModel)(viewModel)));
+        }
+        
+        public virtual GameContextViewModel CreateGameContext() {
+            return ((GameContextViewModel)(this.Create()));
+        }
+        
+        public override ViewModel CreateEmpty() {
+            return new GameContextViewModel(this.EventAggregator);
+        }
+        
+        public virtual void InitializeGameContext(GameContextViewModel viewModel) {
+            // This is called when a GameContextViewModel is created
+            GameContextManager.Add(viewModel);
+        }
+        
+        public override void DisposingViewModel(ViewModel viewModel) {
+            base.DisposingViewModel(viewModel);
+            GameContextManager.Remove(viewModel);
+        }
+        
+        public virtual void ChangeName(GameContextViewModel viewModel) {
+        }
+        
+        public virtual void ChangeNameHandler(ChangeNameCommand command) {
+            this.ChangeName(command.Sender as GameContextViewModel);
+        }
+    }
 }

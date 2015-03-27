@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Invert.MVVMTest {
     using System;
     using System.Collections;
@@ -10,18 +12,13 @@ namespace Invert.MVVMTest {
         
         public override void Setup() {
             base.Setup();
-            UnityEngine.Debug.Log("Setup invoked");
+        
             this.OnEvent<object>()
                 .Subscribe(_ => UnityEngine.Debug.Log(string.Format("{0} Event was published.", _.GetType().Name)));
         }
-        
-        public override void NewSimpleClassNodeHandler(NewSimpleClassNode data) {
-            base.NewSimpleClassNodeHandler(data);
-        }
-        
-        public override void LoginHandler(LoginCommand data) {
-            base.LoginHandler(data);
-            UnityEngine.Debug.Log("Login Command invoked");
-        }
+
+   
     }
+
+   
 }

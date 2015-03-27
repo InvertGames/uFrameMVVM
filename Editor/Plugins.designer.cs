@@ -164,6 +164,7 @@ namespace Invert.uFrame.MVVM {
         }
         
         public override void Initialize(Invert.Core.uFrameContainer container) {
+            container.RegisterInstance<IDocumentationProvider>(new uFrameMVVMDocumentationProvider(), "uFrameMVVM");
             container.RegisterInstance<IEditorCommand>(GetCommandsSelectionCommand(), typeof(CommandsChildItem).Name + "TypeSelection");;
             container.AddTypeItem<CommandsChildItem>();
             container.AddItem<HandlersReference>();

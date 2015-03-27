@@ -26,6 +26,13 @@ namespace Invert.uFrame.MVVM {
         {
             get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p=>!(p is CommandNode)).Cast<IItem>(); }
         }
+
+
+        public override void Document(IDocumentationBuilder docs)
+        {
+            base.Document(docs);
+            
+        }
     }
     
     public partial interface IServiceConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

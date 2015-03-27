@@ -32,19 +32,6 @@ namespace Invert.MVVMTest {
         }
         
         public virtual void Setup() {
-            this.OnEvent<NewSimpleClassNode>().Subscribe(this.NewSimpleClassNodeHandler);
-            this.OnEvent<LoginCommand>().Subscribe(this.LoginHandler);
-        }
-        
-        public virtual void NewSimpleClassNodeHandler(NewSimpleClassNode data) {
-        }
-        
-        public virtual void LoginHandler(LoginCommand data) {
-        }
-
-        public void Dispose()
-        {
-            
         }
     }
 }

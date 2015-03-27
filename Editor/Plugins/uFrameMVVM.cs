@@ -166,7 +166,7 @@ namespace Invert.uFrame.MVVM {
                 else
                 {
                     var parameterName = parameter.Name.Substring(0, 1).ToUpper() + parameter.Name.Substring(1);
-                    var field = context._private_(parameter.ParameterType, "_{0}{1}", name, parameterName);
+                    var field = context._protected_(parameter.ParameterType, "_{0}{1}", name, parameterName);
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(UFGroupType),
                         new CodeAttributeArgument(new CodePrimitiveExpression(name))));
 

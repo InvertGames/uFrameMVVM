@@ -50,8 +50,8 @@ namespace Invert.MVVMTest {
         
         public override void Setup() {
             Container.RegisterViewModel<HeadTrainerViewModel>(HeadTrainer, "HeadTrainer");
-            Container.RegisterController<HeadTrainerController>(HeadTrainerController);
             Container.RegisterViewModelManager<HeadTrainerViewModel>(new ViewModelManager<HeadTrainerViewModel>());
+            Container.RegisterController<HeadTrainerController>(HeadTrainerController);
             Container.InjectAll();
         }
         
@@ -64,6 +64,42 @@ namespace Invert.MVVMTest {
     
     [System.SerializableAttribute()]
     public class DemoSceneSettingsBase : object {
+        
+        public string[] _Scenes;
+    }
+    
+    public class MainSceneBase : SceneManager {
+        
+        private GameContextController _GameContextController;
+        
+        public MainSceneSettings _MainSceneSettings = new MainSceneSettings();
+        [InjectAttribute()]
+        public virtual GameContextController GameContextController {
+            get {
+                if (_GameContextController==null) {
+                    _GameContextController = Container.CreateInstance(typeof(GameContextController)) as GameContextController;;
+                }
+                return _GameContextController;
+            }
+            set {
+                _GameContextController = value;
+            }
+        }
+        
+        public override void Setup() {
+            Container.RegisterViewModelManager<GameContextViewModel>(new ViewModelManager<GameContextViewModel>());
+            Container.RegisterController<GameContextController>(GameContextController);
+            Container.InjectAll();
+        }
+        
+        // This method is called right after setup is invoked.
+        public override void Initialize() {
+            base.Initialize();
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    public class MainSceneSettingsBase : object {
         
         public string[] _Scenes;
     }

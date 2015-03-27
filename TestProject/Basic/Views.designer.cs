@@ -36,7 +36,7 @@ namespace Invert.MVVMTest {
         [UFGroup("FirstName")]
         [UnityEngine.SerializeField()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_FirstNameinput")]
-        private UnityEngine.UI.InputField _FirstNameInput;
+        protected UnityEngine.UI.InputField _FirstNameInput;
         
         [UFToggleGroup("Login")]
         [UnityEngine.HideInInspector()]
@@ -45,7 +45,7 @@ namespace Invert.MVVMTest {
         [UFGroup("Login")]
         [UnityEngine.SerializeField()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_Loginbutton")]
-        private UnityEngine.UI.Button _LoginButton;
+        protected UnityEngine.UI.Button _LoginButton;
         
         [UFToggleGroup("LastName")]
         [UnityEngine.HideInInspector()]
@@ -54,7 +54,7 @@ namespace Invert.MVVMTest {
         [UFGroup("LastName")]
         [UnityEngine.SerializeField()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_LastNameinput")]
-        private UnityEngine.UI.InputField _LastNameInput;
+        protected UnityEngine.UI.InputField _LastNameInput;
         
         public override string DefaultIdentifier {
             get {
@@ -110,6 +110,70 @@ namespace Invert.MVVMTest {
         
         public virtual void Executefdsa(Single arg) {
             HeadTrainer.fdsa.OnNext(new fdsaCommand() { Sender = HeadTrainer, Argument = arg });
+        }
+    }
+    
+    public class GameContextViewBase : ViewBase {
+        
+        [UnityEngine.SerializeField()]
+        [UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _FirstName;
+        
+        [UFToggleGroup("FirstName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindFirstName = true;
+        
+        [UFGroup("FirstName")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_FirstNameonlyWhenChanged")]
+        protected bool _FirstNameOnlyWhenChanged;
+        
+        public override string DefaultIdentifier {
+            get {
+                return base.DefaultIdentifier;
+            }
+        }
+        
+        public override System.Type ViewModelType {
+            get {
+                return typeof(GameContextViewModel);
+            }
+        }
+        
+        public GameContextViewModel GameContext {
+            get {
+                return (GameContextViewModel)ViewModelObject;
+            }
+        }
+        
+        public override ViewModel CreateModel() {
+            return this.RequestViewModel();
+        }
+        
+        protected override void InitializeViewModel(ViewModel model) {
+            base.InitializeViewModel(model);
+            var gamecontextview = ((GameContextViewModel)model);
+            gamecontextview.FirstName = this._FirstName;
+        }
+        
+        public override void Bind() {
+            base.Bind();
+            if (_BindFirstName) {
+                this.BindProperty(this.GameContext.FirstNameProperty, this.FirstNameChanged, _FirstNameOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void FirstNameChanged(String arg1) {
+        }
+        
+        public virtual void ExecuteChangeName() {
+            GameContext.ChangeName.OnNext(new ChangeNameCommand() { Sender = GameContext });
+        }
+        
+        public virtual void ExecuteChangeName(ChangeNameCommand command) {
+            command.Sender = GameContext;
+            GameContext.ChangeName.OnNext(command);
         }
     }
 }

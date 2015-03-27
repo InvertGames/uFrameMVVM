@@ -6,6 +6,13 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
 
     public class SceneManagerNode : SceneManagerNodeBase , IClassRefactorable {
+        public IEnumerable<ServiceNode> IncludedServices
+        {
+            get
+            {
+                return Subsystem.ImportedSystemsWithThis.SelectMany(p =>p.GetContainingNodesInProject(Project)).OfType<ServiceNode>().Distinct();
+            }
+        }
         public override bool AllowInputs
         {
             get { return true; }
@@ -13,7 +20,12 @@ namespace Invert.uFrame.MVVM {
 
         public override bool AllowOutputs
         {
-            get { return false; }
+            get { return true; }
+        }
+
+        public override bool AllowMultipleInputs
+        {
+            get { return true; }
         }
 
         public virtual IEnumerable<InstancesReference> ImportedItems

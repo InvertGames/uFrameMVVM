@@ -5,6 +5,7 @@ namespace Invert.MVVMTest {
     using System.Linq;
     
     
-    public class NewSimpleClassNode : NewSimpleClassNodeBase {
+    [System.SerializableAttribute()]
+    public class MainSceneSettings : MainSceneSettingsBase {
     }
 }
