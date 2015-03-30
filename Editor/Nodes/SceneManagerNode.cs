@@ -72,7 +72,9 @@ namespace Invert.uFrame.MVVM {
             get
             {
                 yield return "{0}";
+                yield return "{0}Base";
                 yield return "{0}Settings";
+                yield return "{0}SettingsBase";
             }
         }
     }

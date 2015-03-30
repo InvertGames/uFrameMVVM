@@ -31,16 +31,9 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public override string Name {
-            get {
-                return "uFrameMVVM";
-            }
-            set {
-            }
-        }
-        
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -64,12 +57,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Element";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -77,7 +68,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ElementPage);
+                return typeof(ElementPageBase);
             }
         }
         
@@ -93,12 +84,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Properties";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -106,7 +95,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ElementPage);
+                return typeof(ElementPageBase);
             }
         }
         
@@ -122,12 +111,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Collections";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -135,7 +122,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ElementPage);
+                return typeof(ElementPageBase);
             }
         }
         
@@ -151,12 +138,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Commands";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -164,7 +149,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ElementPage);
+                return typeof(ElementPageBase);
             }
         }
         
@@ -180,12 +165,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Handlers";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -209,12 +192,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "SimpleClass";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -222,7 +203,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SimpleClassPage);
+                return typeof(SimpleClassPageBase);
             }
         }
         
@@ -238,12 +219,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Properties";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -251,7 +230,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SimpleClassPage);
+                return typeof(SimpleClassPageBase);
             }
         }
         
@@ -267,12 +246,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Collections";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -296,12 +273,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "View";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -309,7 +284,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ViewPage);
+                return typeof(ViewPageBase);
             }
         }
         
@@ -325,12 +300,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Scene Properties";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -338,7 +311,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ViewPage);
+                return typeof(ViewPageBase);
             }
         }
         
@@ -354,12 +327,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Bindings";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -367,7 +338,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ViewPage);
+                return typeof(ViewPageBase);
             }
         }
         
@@ -383,12 +354,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Element";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -412,12 +381,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "ComputedProperty";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -425,7 +392,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ComputedPropertyPage);
+                return typeof(ComputedPropertyPageBase);
             }
         }
         
@@ -441,12 +408,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Sub Properties";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -470,12 +435,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Subsystem";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -483,7 +446,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SubsystemPage);
+                return typeof(SubsystemPageBase);
             }
         }
         
@@ -499,12 +462,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Import";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -512,7 +473,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SubsystemPage);
+                return typeof(SubsystemPageBase);
             }
         }
         
@@ -528,12 +489,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Export";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -541,7 +500,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SubsystemPage);
+                return typeof(SubsystemPageBase);
             }
         }
         
@@ -557,12 +516,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Instances";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -586,12 +543,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "SceneManager";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -599,7 +554,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SceneManagerPage);
+                return typeof(SceneManagerPageBase);
             }
         }
         
@@ -615,12 +570,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Subsystem";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -628,7 +581,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(SceneManagerPage);
+                return typeof(SceneManagerPageBase);
             }
         }
         
@@ -644,12 +597,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Scene Transitions";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -673,12 +624,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "MVVM";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -702,12 +651,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "StateMachine";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -715,7 +662,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(StateMachinePage);
+                return typeof(StateMachinePageBase);
             }
         }
         
@@ -731,12 +678,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Transitions";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -744,7 +689,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(StateMachinePage);
+                return typeof(StateMachinePageBase);
             }
         }
         
@@ -760,12 +705,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Start State";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -789,12 +732,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "State";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -802,7 +743,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(StatePage);
+                return typeof(StatePageBase);
             }
         }
         
@@ -818,12 +759,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "State Transitions";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -847,12 +786,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "ViewComponent";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -876,12 +813,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Command";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -889,7 +824,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(CommandPage);
+                return typeof(CommandPageBase);
             }
         }
         
@@ -905,12 +840,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Properties";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -918,7 +851,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(CommandPage);
+                return typeof(CommandPageBase);
             }
         }
         
@@ -934,12 +867,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Collections";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -963,12 +894,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Service";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
     
@@ -976,7 +905,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type ParentPage {
             get {
-                return typeof(ServicePage);
+                return typeof(ServicePageBase);
             }
         }
         
@@ -992,12 +921,10 @@ namespace Invert.uFrame.MVVM {
             get {
                 return "Handlers";
             }
-            set {
-            }
         }
         
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder builder) {
-            base.GetContent(builder);
+        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
+            base.GetContent(_);
         }
     }
 }

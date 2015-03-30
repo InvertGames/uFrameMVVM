@@ -8,7 +8,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class ViewNode : ViewNodeBase, IViewComponentConnectable {
+    public class ViewNode : ViewNodeBase, IViewComponentConnectable, IClassRefactorable {
         public override IEnumerable<IItem> PossibleBindings
         {
             get
@@ -91,6 +91,14 @@ namespace Invert.uFrame.MVVM {
             }
         }
 
+        public IEnumerable<string> ClassNameFormats
+        {
+            get
+            {
+                yield return "{0}";
+                yield return "{0}Base";
+            }
+        }
     }
     
     public partial interface IViewConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
