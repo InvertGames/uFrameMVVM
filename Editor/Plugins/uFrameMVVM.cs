@@ -124,11 +124,11 @@ namespace Invert.uFrame.MVVM {
             //Description
         }
 
-        public CodeExpression CreateBindingSignature(CodeTypeDeclaration context, Func<Type, CodeTypeReference> convertGenericParameter, ViewNode elementView, ITypedItem sourceItem, string subscribablePropertyNameFormat = "{0}Property")
+        public CodeExpression CreateBindingSignature(CreateBindingSignatureParams createBindingSignatureParams)
         {
-            var elementName = elementView.Element.Name;
-            var propertyName = string.Format(subscribablePropertyNameFormat, sourceItem.Name);
-            var name = sourceItem.Name;
+            var elementName = createBindingSignatureParams.ElementView.Element.Name;
+            var propertyName = string.Format(createBindingSignatureParams.SubscribablePropertyNameFormat, createBindingSignatureParams.SourceItem.Name);
+            var name = createBindingSignatureParams.SourceItem.Name;
 
             var methodInvoke = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(), MethodInfo.Name);
             
@@ -142,18 +142,19 @@ namespace Invert.uFrame.MVVM {
                 var genericArguments = parameter.ParameterType.GetGenericArguments();
                 if (typeof(Delegate).IsAssignableFrom(parameter.ParameterType))
                 {
-                    var method = CreateDelegateMethod(convertGenericParameter, parameter, genericArguments, propertyName, name);
+                    var method = CreateDelegateMethod(createBindingSignatureParams.ConvertGenericParameter, parameter, genericArguments, propertyName, name);
 
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format((string)"this.{0}", (object)method.Name)));
-                    context.Members.Add(method);
-                    if (HandlerImplementation != null)
+                    createBindingSignatureParams.Context.Members.Add(method);
+                    if (HandlerImplementation != null && !createBindingSignatureParams.DontImplement)
                     {
-                        HandlerImplementation(new BindingHandlerArgs() { View = elementView, SourceItem = sourceItem, Method = method, Decleration = context });
+                        HandlerImplementation(new BindingHandlerArgs() { View = createBindingSignatureParams.ElementView, SourceItem = createBindingSignatureParams.SourceItem, Method = method, Decleration = createBindingSignatureParams.Context });
                     }
+                    createBindingSignatureParams.Ctx.Results.Add(new TemplateMemberResult(null,null,new TemplateMethod(MemberGeneratorLocation.Both), method,createBindingSignatureParams.Ctx.CurrentDecleration));
                 }
                 else if (typeof(ICollection).IsAssignableFrom(parameter.ParameterType))
                 {
-                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, sourceItem.Name)));
+                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, createBindingSignatureParams.SourceItem.Name)));
                 }
                 else if (ObservablePropertyType.IsAssignableFrom(parameter.ParameterType))
                 {
@@ -161,16 +162,17 @@ namespace Invert.uFrame.MVVM {
                 }
                 else if (ICommandType.IsAssignableFrom(parameter.ParameterType))
                 {
-                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, sourceItem.Name)));
+                    methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format("this.{0}.{1}", elementName, createBindingSignatureParams.SourceItem.Name)));
                 }
-                else
+                else if (!createBindingSignatureParams.DontImplement)
                 {
                     var parameterName = parameter.Name.Substring(0, 1).ToUpper() + parameter.Name.Substring(1);
-                    var field = context._protected_(parameter.ParameterType, "_{0}{1}", name, parameterName);
+                    var field = createBindingSignatureParams.Context._protected_(parameter.ParameterType, "_{0}{1}", name, parameterName);
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(UFGroupType),
                         new CodeAttributeArgument(new CodePrimitiveExpression(name))));
 
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof(SerializeField))));
+                    field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof(HideInInspector))));
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(field.Name));
 
                     field.CustomAttributes.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof(FormerlySerializedAsAttribute)),
@@ -219,6 +221,52 @@ namespace Invert.uFrame.MVVM {
         {
 
         }
+    }
+
+    public class CreateBindingSignatureParams
+    {
+        private CodeTypeDeclaration _context;
+        private Func<Type, CodeTypeReference> _convertGenericParameter;
+        private ViewNode _elementView;
+        private ITypedItem _sourceItem;
+        private string _subscribablePropertyNameFormat;
+
+        public CreateBindingSignatureParams(CodeTypeDeclaration context, Func<Type, CodeTypeReference> convertGenericParameter, ViewNode elementView, ITypedItem sourceItem, string subscribablePropertyNameFormat = "{0}Property")
+        {
+            _context = context;
+            _convertGenericParameter = convertGenericParameter;
+            _elementView = elementView;
+            _sourceItem = sourceItem;
+            _subscribablePropertyNameFormat = subscribablePropertyNameFormat;
+        }
+
+        public CodeTypeDeclaration Context
+        {
+            get { return _context; }
+        }
+
+        public Func<Type, CodeTypeReference> ConvertGenericParameter
+        {
+            get { return _convertGenericParameter; }
+        }
+
+        public ViewNode ElementView
+        {
+            get { return _elementView; }
+        }
+
+        public ITypedItem SourceItem
+        {
+            get { return _sourceItem; }
+        }
+
+        public string SubscribablePropertyNameFormat
+        {
+            get { return _subscribablePropertyNameFormat; }
+        }
+
+        public TemplateContext<ViewNode> Ctx { get; set; }
+        public bool DontImplement { get; set; }
     }
 
     public class BindingHandlerArgs

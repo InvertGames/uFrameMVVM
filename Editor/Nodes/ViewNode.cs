@@ -33,7 +33,7 @@ namespace Invert.uFrame.MVVM {
                             SourceIdentifier = item.Identifier,
                             BindingName = mapping.Name,
                             BindingType = bindableType,
-                            Name = string.Format(bindableType.DisplayFormat, item.Name)
+                           // Name = string.Format(bindableType.DisplayFormat, item.Name)
                         };
 
                     }
