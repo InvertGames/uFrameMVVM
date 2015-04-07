@@ -9,7 +9,7 @@ namespace Invert.uFrame.MVVM
     using Invert.Core.GraphDesigner;
 
 
-    public class ElementNode : ElementNodeBase, IViewConnectable, IInstancesConnectable, IClassRefactorable
+    public class ElementNode : ElementNodeBase, IViewConnectable
     {
         public IEnumerable<ElementNode> RelatedElements
         {

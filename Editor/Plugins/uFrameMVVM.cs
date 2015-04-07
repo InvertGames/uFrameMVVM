@@ -1,6 +1,7 @@
 using System.CodeDom;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -150,7 +151,16 @@ namespace Invert.uFrame.MVVM {
                     {
                         HandlerImplementation(new BindingHandlerArgs() { View = createBindingSignatureParams.ElementView, SourceItem = createBindingSignatureParams.SourceItem, Method = method, Decleration = createBindingSignatureParams.Context });
                     }
-                    createBindingSignatureParams.Ctx.Results.Add(new TemplateMemberResult(null,null,new TemplateMethod(MemberGeneratorLocation.Both), method,createBindingSignatureParams.Ctx.CurrentDecleration));
+                    if (createBindingSignatureParams.DontImplement)
+                    {
+                        method.Attributes |= MemberAttributes.Override;
+                    }
+                    createBindingSignatureParams.Ctx.AddMemberOutput(createBindingSignatureParams.BindingsReference,
+                        new TemplateMemberResult(null,
+                            null,
+                            new TemplateMethod(MemberGeneratorLocation.Both), 
+                            method,
+                            createBindingSignatureParams.Ctx.CurrentDecleration));
                 }
                 else if (typeof(ICollection).IsAssignableFrom(parameter.ParameterType))
                 {
@@ -180,6 +190,7 @@ namespace Invert.uFrame.MVVM {
                  
                 }
             }
+            
             return methodInvoke;
         }
 
@@ -267,6 +278,7 @@ namespace Invert.uFrame.MVVM {
 
         public TemplateContext<ViewNode> Ctx { get; set; }
         public bool DontImplement { get; set; }
+        public BindingsReference BindingsReference { get; set; }
     }
 
     public class BindingHandlerArgs

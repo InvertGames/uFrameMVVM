@@ -5,7 +5,7 @@ namespace Invert.uFrame.MVVM {
     using System.Linq;
     using Invert.Core.GraphDesigner;
 
-    public class SceneManagerNode : SceneManagerNodeBase , IClassRefactorable {
+    public class SceneManagerNode : SceneManagerNodeBase  {
         public IEnumerable<ServiceNode> IncludedServices
         {
             get
@@ -67,16 +67,7 @@ namespace Invert.uFrame.MVVM {
 
         }
 
-        public IEnumerable<string> ClassNameFormats
-        {
-            get
-            {
-                yield return "{0}";
-                yield return "{0}Base";
-                yield return "{0}Settings";
-                yield return "{0}SettingsBase";
-            }
-        }
+      
     }
     
     public partial interface ISceneManagerConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

@@ -10,18 +10,7 @@ namespace Invert.uFrame.MVVM {
     
     public class ServiceNode : ServiceNodeBase {
 
-        [InspectorProperty]
-        public bool MonoBehaviour
-        {
-            get
-            {
-                return this["Mono Behaviour"];
-            }
-            set
-            {
-                this["Mono Behaviour"] = value;
-            }
-        }
+   
         public override IEnumerable<IItem> PossibleHandlers
         {
             get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p=>!(p is CommandNode)).Cast<IItem>(); }
