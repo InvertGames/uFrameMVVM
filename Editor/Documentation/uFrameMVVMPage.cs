@@ -15,32 +15,7 @@ namespace Invert.uFrame.MVVM {
         public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
             base.GetContent(_);
         }
-        public uFrameMVVMKernel EnsureScaffoldKernel(IDocumentationBuilder builder, IProjectRepository projectRepository, Action<IDocumentationBuilder> stepContent = null)
-        {
 
-            var project = projectRepository as DefaultProjectRepository;
-            
-            var path = AssetDatabase.GetAssetPath(project);
-            var prefabName = project.Name + "Kernel.prefab";
-            var prefabNameWithPath = path.Replace(project.name + ".asset", prefabName);
-     
-            
-            var go = AssetDatabase.LoadAssetAtPath(prefabNameWithPath, typeof(GameObject)) as GameObject;
-            var component = go == null ? null : go.GetComponent<uFrameMVVMKernel>();
-            builder.ShowTutorialStep(new TutorialStep("Now create the we need to create the kernel.", () =>
-            {
-
-                if (component == null)
-                {
-                    return "The Kernel Prefab has not been created yet.  Please press 'Scaffold/Update Kernel'.";
-                }
-                return null;
-            })
-            {
-                StepContent = stepContent
-            });
-            return component;
-        }
         public TComponentType EnsureComponentInSceneStep<TComponentType>(IDocumentationBuilder builder, DiagramNode node, Action<IDocumentationBuilder> stepContent = null) where TComponentType : UnityEngine.Object
         {
             var view =

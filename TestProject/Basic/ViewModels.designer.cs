@@ -87,8 +87,8 @@ namespace Invert.MVVMTest {
         
         public override void Bind() {
             base.Bind();
-            this.Login = new Signal<LoginCommand>(this, this.Aggregator);
-            this.fdsa = new Signal<fdsaCommand>(this, this.Aggregator);
+            this.Login = new Signal<LoginCommand>(this);
+            this.fdsa = new Signal<fdsaCommand>(this);
             _FirstNameProperty = new P<String>(this, "FirstName");
             _LastNameProperty = new P<String>(this, "LastName");
         }
@@ -162,7 +162,7 @@ namespace Invert.MVVMTest {
         
         public override void Bind() {
             base.Bind();
-            this.ChangeName = new Signal<ChangeNameCommand>(this, this.Aggregator);
+            this.ChangeName = new Signal<ChangeNameCommand>(this);
             _FirstNameProperty = new P<String>(this, "FirstName");
         }
         

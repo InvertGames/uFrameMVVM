@@ -7,6 +7,19 @@ namespace Invert.uFrame.MVVM {
     
     
     public class ViewComponentNode : ViewComponentNodeBase {
+        public ViewNode View
+        {
+            get { return this.InputFrom<ViewNode>(); }
+        }
+
+        public override void Validate(List<ErrorInfo> errors)
+        {
+            base.Validate(errors);
+            if (View == null)
+            {
+                errors.AddError(string.Format("View must be connected to the {0} ViewComponent.",  this.Name));
+            }
+        }
     }
     
     public partial interface IViewComponentConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

@@ -58,12 +58,12 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
-        public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
-            get {
-                return ChildItems.OfType<HandlersReference>();
-            }
-        }
+        //[Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
+        //public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
+        //    get {
+        //        return ChildItems.OfType<HandlersReference>();
+        //    }
+        //}
     }
     
     public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

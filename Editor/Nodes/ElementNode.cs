@@ -171,6 +171,26 @@ namespace Invert.uFrame.MVVM
                 }
             }
         }
+        public virtual System.Collections.Generic.IEnumerable<CommandsChildItem> InheritedCommandsWithLocal
+        {
+            get
+            {
+                foreach (var item in LocalCommands)
+                    yield return item;
+                var baseElement = BaseNode as ElementNode;
+                if (baseElement != null)
+                {
+                    foreach (var property in baseElement.LocalCommands)
+                    {
+                        yield return property;
+                    }
+                    foreach (var property in baseElement.InheritedCommands)
+                    {
+                        yield return property;
+                    }
+                }
+            }
+        }
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex = 0, IsNewRow = true)]
         public override System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties
         {
@@ -235,10 +255,10 @@ namespace Invert.uFrame.MVVM
                 {
                     yield return item;
                 }
-                foreach (var item in Handlers.Where(p=>p.SourceItem is CommandsChildItem))
-                {
-                    yield return item.SourceItem as CommandsChildItem;
-                }
+                //foreach (var item in Handlers.Where(p=>p.SourceItem is CommandsChildItem))
+                //{
+                //    yield return item.SourceItem as CommandsChildItem;
+                //}
             }
         }
         public IEnumerable<PropertiesChildItem> LocalProperties
