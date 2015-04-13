@@ -189,10 +189,6 @@ namespace Invert.uFrame.MVVM {
     
     public class SubsystemNodeBase : Invert.Core.GraphDesigner.GenericNode {
         
-        private Import _Import;
-        
-        private Export _Export;
-        
         public override bool AllowMultipleInputs {
             get {
                 return false;
@@ -217,40 +213,12 @@ namespace Invert.uFrame.MVVM {
                 return ChildItems.OfType<InstancesReference>();
             }
         }
-        
-        [Invert.Core.GraphDesigner.InputSlot("Import", true, SectionVisibility.WhenNodeIsNotFilter, OrderIndex=0, IsNewRow=true)]
-        public virtual Import ImportInputSlot {
-            get {
-                if (_Import == null) {
-                    _Import = new Import() { Node = this };
-                }
-                return _Import;
-            }
-            set {
-                _Import = value;
-            }
-        }
-        
-        [Invert.Core.GraphDesigner.OutputSlot("Export", false, SectionVisibility.WhenNodeIsNotFilter, OrderIndex=0, IsNewRow=false)]
-        public virtual Export ExportOutputSlot {
-            get {
-                if (_Export == null) {
-                    _Export = new Export() { Node = this };
-                }
-                return _Export;
-            }
-            set {
-                _Export = value;
-            }
-        }
     }
     
     public partial interface ISubsystemConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class SceneManagerNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode {
-        
-        private Subsystem _Subsystem;
+    public class SceneTypeNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode {
         
         public virtual string ClassName {
             get {
@@ -269,35 +237,9 @@ namespace Invert.uFrame.MVVM {
                 return true;
             }
         }
-        
-        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleSceneTransitions {
-            get {
-                return this.Project.AllGraphItems.OfType<ISceneTransitionsConnectable>().Cast<IItem>();
-            }
-        }
-        
-        [Invert.Core.GraphDesigner.ReferenceSection("Scene Transitions", SectionVisibility.Always, false, false, typeof(ISceneTransitionsConnectable), false, OrderIndex=1, HasPredefinedOptions=false, IsNewRow=true)]
-        public virtual System.Collections.Generic.IEnumerable<SceneTransitionsReference> SceneTransitions {
-            get {
-                return ChildItems.OfType<SceneTransitionsReference>();
-            }
-        }
-        
-        [Invert.Core.GraphDesigner.InputSlot("Subsystem", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
-        public virtual Subsystem SubsystemInputSlot {
-            get {
-                if (_Subsystem == null) {
-                    _Subsystem = new Subsystem() { Node = this };
-                }
-                return _Subsystem;
-            }
-            set {
-                _Subsystem = value;
-            }
-        }
     }
     
-    public partial interface ISceneManagerConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface ISceneTypeConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
     public class MVVMNodeBase : Invert.Core.GraphDesigner.GenericNode {

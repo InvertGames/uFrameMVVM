@@ -51,9 +51,9 @@ namespace Invert.uFrame.MVVM {
         }
     }
     
-    public class SceneManagerNodeDrawerBase : GenericNodeDrawer<SceneManagerNode,SceneManagerNodeViewModel> {
+    public class SceneTypeNodeDrawerBase : GenericNodeDrawer<SceneTypeNode,SceneTypeNodeViewModel> {
         
-        public SceneManagerNodeDrawerBase(SceneManagerNodeViewModel viewModel) : 
+        public SceneTypeNodeDrawerBase(SceneTypeNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }

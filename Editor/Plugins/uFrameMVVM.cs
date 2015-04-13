@@ -41,10 +41,16 @@ namespace Invert.uFrame.MVVM {
         public override void Loaded(uFrameContainer container)
         {
             base.Loaded(container);
+            MVVM.HasSubNode<ServiceNode>();
             Subsystem.HasSubNode<TypeReferenceNode>();
             Element.HasSubNode<TypeReferenceNode>();
             Subsystem.HasSubNode<EnumNode>();
             Element.HasSubNode<EnumNode>();
+            Service.HasSubNode<EnumNode>();
+            Service.HasSubNode<SimpleClassNode>();
+            Service.HasSubNode<TypeReferenceNode>();
+            SceneType.Name = "Scene Type";
+            Subsystem.Name = "Sub System";
             BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
 
             

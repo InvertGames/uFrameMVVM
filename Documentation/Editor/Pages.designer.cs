@@ -31,7 +31,8 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-
+    
+        
         public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
             base.GetContent(_);
         }
@@ -442,60 +443,6 @@ namespace Invert.uFrame.MVVM {
         }
     }
     
-    public abstract class SubsystemImportPageBase : uFrameMVVMPage {
-        
-        public override System.Type ParentPage {
-            get {
-                return typeof(SubsystemPageBase);
-            }
-        }
-        
-        public override System.Type RelatedNodeType {
-            get {
-                return typeof(Import);
-            }
-            set {
-            }
-        }
-        
-        public override string Name {
-            get {
-                return "Import";
-            }
-        }
-        
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
-            base.GetContent(_);
-        }
-    }
-    
-    public abstract class SubsystemExportPageBase : uFrameMVVMPage {
-        
-        public override System.Type ParentPage {
-            get {
-                return typeof(SubsystemPageBase);
-            }
-        }
-        
-        public override System.Type RelatedNodeType {
-            get {
-                return typeof(Export);
-            }
-            set {
-            }
-        }
-        
-        public override string Name {
-            get {
-                return "Export";
-            }
-        }
-        
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
-            base.GetContent(_);
-        }
-    }
-    
     public abstract class SubsystemInstancesPageBase : uFrameMVVMPage {
         
         public override System.Type ParentPage {
@@ -523,7 +470,7 @@ namespace Invert.uFrame.MVVM {
         }
     }
     
-    public abstract class SceneManagerPageBase : uFrameMVVMPage {
+    public abstract class SceneTypePageBase : uFrameMVVMPage {
         
         public override System.Type ParentPage {
             get {
@@ -533,7 +480,7 @@ namespace Invert.uFrame.MVVM {
         
         public override System.Type RelatedNodeType {
             get {
-                return typeof(SceneManagerNode);
+                return typeof(SceneTypeNode);
             }
             set {
             }
@@ -541,61 +488,7 @@ namespace Invert.uFrame.MVVM {
         
         public override string Name {
             get {
-                return "SceneManager";
-            }
-        }
-        
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
-            base.GetContent(_);
-        }
-    }
-    
-    public abstract class SceneManagerSubsystemPageBase : uFrameMVVMPage {
-        
-        public override System.Type ParentPage {
-            get {
-                return typeof(SceneManagerPageBase);
-            }
-        }
-        
-        public override System.Type RelatedNodeType {
-            get {
-                return typeof(Subsystem);
-            }
-            set {
-            }
-        }
-        
-        public override string Name {
-            get {
-                return "Subsystem";
-            }
-        }
-        
-        public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
-            base.GetContent(_);
-        }
-    }
-    
-    public abstract class SceneManagerSceneTransitionsPageBase : uFrameMVVMPage {
-        
-        public override System.Type ParentPage {
-            get {
-                return typeof(SceneManagerPageBase);
-            }
-        }
-        
-        public override System.Type RelatedNodeType {
-            get {
-                return typeof(SceneTransitionsReference);
-            }
-            set {
-            }
-        }
-        
-        public override string Name {
-            get {
-                return "Scene Transitions";
+                return "SceneType";
             }
         }
         

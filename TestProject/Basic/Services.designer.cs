@@ -33,5 +33,10 @@ namespace Invert.MVVMTest {
         
         public virtual void Setup() {
         }
+
+        public IEnumerator SetupAsync()
+        {
+            yield break;
+        }
     }
 }

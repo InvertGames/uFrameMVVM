@@ -5,9 +5,9 @@ namespace Invert.uFrame.MVVM {
     using System.Linq;
     
     
-    public class SceneManagerNodeViewModel : SceneManagerNodeViewModelBase {
+    public class SceneTypeNodeViewModel : SceneTypeNodeViewModelBase {
         
-        public SceneManagerNodeViewModel(SceneManagerNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+        public SceneTypeNodeViewModel(SceneTypeNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
                 base(graphItemObject, diagramViewModel) {
         }
     }

@@ -29,7 +29,7 @@ namespace Invert.uFrame.MVVM {
         
         private Invert.Core.GraphDesigner.NodeConfig<SubsystemNode> _Subsystem;
         
-        private Invert.Core.GraphDesigner.NodeConfig<SceneManagerNode> _SceneManager;
+        private Invert.Core.GraphDesigner.NodeConfig<SceneTypeNode> _SceneType;
         
         private Invert.Core.GraphDesigner.NodeConfig<MVVMNode> _MVVM;
         
@@ -88,12 +88,12 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<SceneManagerNode> SceneManager {
+        public Invert.Core.GraphDesigner.NodeConfig<SceneTypeNode> SceneType {
             get {
-                return _SceneManager;
+                return _SceneType;
             }
             set {
-                _SceneManager = value;
+                _SceneType = value;
             }
         }
         
@@ -175,7 +175,6 @@ namespace Invert.uFrame.MVVM {
             container.AddItem<BindingsReference>();
             container.AddItem<SubPropertiesReference>();
             container.AddTypeItem<InstancesReference>();
-            container.AddItem<SceneTransitionsReference>();
             container.AddItem<TransitionsChildItem>();
             container.AddItem<StateTransitionsReference>();
             Element = container.AddNode<ElementNode,ElementNodeViewModel,ElementNodeDrawer>("Element");
@@ -200,12 +199,12 @@ namespace Invert.uFrame.MVVM {
             Subsystem.HasSubNode<SimpleClassNode>();
             Subsystem.HasSubNode<CommandNode>();
             Subsystem.HasSubNode<ServiceNode>();
-            SceneManager = container.AddNode<SceneManagerNode,SceneManagerNodeViewModel,SceneManagerNodeDrawer>("SceneManager");
-            SceneManager.Color(NodeColor.Orange);
+            SceneType = container.AddNode<SceneTypeNode,SceneTypeNodeViewModel,SceneTypeNodeDrawer>("SceneType");
+            SceneType.Color(NodeColor.Orange);
             MVVM = container.AddGraph<MVVMGraph, MVVMNode>("MVVMGraph");
             MVVM.Color(NodeColor.Gray);
             MVVM.HasSubNode<SubsystemNode>();
-            MVVM.HasSubNode<SceneManagerNode>();
+            MVVM.HasSubNode<SceneTypeNode>();
             StateMachine = container.AddGraph<StateMachineGraph, StateMachineNode>("StateMachineGraph");
             StateMachine.Color(NodeColor.Orange);
             StateMachine.HasSubNode<StateNode>();
@@ -216,7 +215,7 @@ namespace Invert.uFrame.MVVM {
             Command = container.AddNode<CommandNode,CommandNodeViewModel,CommandNodeDrawer>("Command");
             Command.Inheritable();
             Command.Color(NodeColor.Black);
-            Service = container.AddNode<ServiceNode,ServiceNodeViewModel,ServiceNodeDrawer>("Service");
+            Service = container.AddGraph<ServiceGraph, ServiceNode>("ServiceGraph");
             Service.Color(NodeColor.Gray);
             container.Connectable<ElementNode,InstancesReference>();
             container.Connectable<ElementNode,Element>();
@@ -228,15 +227,11 @@ namespace Invert.uFrame.MVVM {
             container.Connectable<CollectionsChildItem,BindingsReference>();
             container.Connectable<CommandsChildItem,BindingsReference>();
             container.Connectable<CommandsChildItem,TransitionsChildItem>();
-            container.Connectable<CommandsChildItem,SceneTransitionsReference>();
             container.Connectable<CommandsChildItem,HandlersReference>();
             container.Connectable<PropertiesChildItem,BindingsReference>();
             container.Connectable<CollectionsChildItem,BindingsReference>();
             container.Connectable<ViewNode,ViewComponentNode>();
             container.Connectable<ComputedPropertyNode,TransitionsChildItem>();
-            container.Connectable<Export,Subsystem>();
-            container.Connectable<Export,Import>();
-            container.Connectable<SceneTransitionsReference,SceneManagerNode>();
             container.Connectable<TransitionsChildItem,StateTransitionsReference>();
             container.Connectable<StartState,StateNode>();
             container.Connectable<StateTransitionsReference,StateNode>();

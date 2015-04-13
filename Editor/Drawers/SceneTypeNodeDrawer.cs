@@ -6,9 +6,9 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
     
     
-    public class SceneManagerNodeDrawer : GenericNodeDrawer<SceneManagerNode,SceneManagerNodeViewModel> {
+    public class SceneTypeNodeDrawer : GenericNodeDrawer<SceneTypeNode,SceneTypeNodeViewModel> {
         
-        public SceneManagerNodeDrawer(SceneManagerNodeViewModel viewModel) : 
+        public SceneTypeNodeDrawer(SceneTypeNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }

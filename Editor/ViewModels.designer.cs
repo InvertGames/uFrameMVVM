@@ -50,9 +50,9 @@ namespace Invert.uFrame.MVVM {
         }
     }
     
-    public class SceneManagerNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<SceneManagerNode> {
+    public class SceneTypeNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<SceneTypeNode> {
         
-        public SceneManagerNodeViewModelBase(SceneManagerNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+        public SceneTypeNodeViewModelBase(SceneTypeNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
                 base(graphItemObject, diagramViewModel) {
         }
     }

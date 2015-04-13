@@ -117,6 +117,60 @@ namespace Invert.uFrame.MVVM
             }
         }
 
+        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> InheritedProperties
+        {
+            get
+            {
+                var baseElement = BaseNode as ElementNode;
+                if (baseElement != null)
+                {
+                    foreach (var property in baseElement.LocalProperties)
+                    {
+                        yield return property;
+                    }
+                    foreach (var property in baseElement.InheritedProperties)
+                    {
+                        yield return property;
+                    }
+                }
+            }
+        }
+        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> InheritedCollections
+        {
+            get
+            {
+                var baseElement = BaseNode as ElementNode;
+                if (baseElement != null)
+                {
+                    foreach (var property in baseElement.LocalCollections)
+                    {
+                        yield return property;
+                    }
+                    foreach (var property in baseElement.InheritedCollections)
+                    {
+                        yield return property;
+                    }
+                }
+            }
+        }
+        public virtual System.Collections.Generic.IEnumerable<CommandsChildItem> InheritedCommands
+        {
+            get
+            {
+                var baseElement = BaseNode as ElementNode;
+                if (baseElement != null)
+                {
+                    foreach (var property in baseElement.LocalCommands)
+                    {
+                        yield return property;
+                    }
+                    foreach (var property in baseElement.InheritedCommands)
+                    {
+                        yield return property;
+                    }
+                }
+            }
+        }
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex = 0, IsNewRow = true)]
         public override System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties
         {
@@ -124,17 +178,9 @@ namespace Invert.uFrame.MVVM
             {
                 if (Graph.CurrentFilter == this)
                 {
-                    var baseElement = BaseNode as ElementNode;
-                    if (baseElement != null)
+                    foreach (var item in InheritedProperties)
                     {
-                        foreach (var property in baseElement.Properties)
-                        {
-                            yield return property;
-                        }
-                    }
-                    else
-                    {
-
+                        yield return item;
                     }
                 }
                 foreach (var item in LocalProperties)
@@ -151,13 +197,9 @@ namespace Invert.uFrame.MVVM
             {
                 if (Graph.CurrentFilter == this)
                 {
-                    var baseElement = BaseNode as ElementNode;
-                    if (baseElement != null)
+                    foreach (var item in InheritedCollections)
                     {
-                        foreach (var property in baseElement.Collections)
-                        {
-                            yield return property;
-                        }
+                        yield return item;
                     }
                 }
                 foreach (var item in LocalCollections)
@@ -173,14 +215,9 @@ namespace Invert.uFrame.MVVM
             {
                 if (Graph.CurrentFilter == this)
                 {
-                    var baseElement = BaseNode as ElementNode;
-                    if (baseElement != null)
+                    foreach (var item in InheritedCommands)
                     {
-
-                        foreach (var property in baseElement.Commands)
-                        {
-                            yield return property;
-                        }
+                        yield return item;
                     }
                 }
                 foreach (var item in LocalCommands)

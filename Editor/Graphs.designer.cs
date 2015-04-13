@@ -24,4 +24,7 @@ namespace Invert.uFrame.MVVM {
     
     public class StateMachineGraphBase : GenericGraphData<StateMachineNode> {
     }
+    
+    public class ServiceGraphBase : GenericGraphData<ServiceNode> {
+    }
 }

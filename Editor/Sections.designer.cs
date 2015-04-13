@@ -88,24 +88,6 @@ namespace Invert.uFrame.MVVM {
     public partial interface IInstancesConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class SceneTransitionsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<ISceneTransitionsConnectable>, ISceneManagerConnectable {
-        
-        public override bool AllowMultipleInputs {
-            get {
-                return true;
-            }
-        }
-        
-        public override bool AllowMultipleOutputs {
-            get {
-                return true;
-            }
-        }
-    }
-    
-    public partial interface ISceneTransitionsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
-    }
-    
     public class StateTransitionsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IStateTransitionsConnectable>, IStateConnectable {
         
         public override bool AllowMultipleInputs {

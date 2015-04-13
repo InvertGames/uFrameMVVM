@@ -45,6 +45,11 @@ namespace Invert.uFrame.MVVM {
             get { return this.InputsFrom<PropertiesChildItem>(); }
         }
 
+        public override string RelatedType
+        {
+            get { return Type; }
+            set { Type= value; }
+        }
 
 
         public override string RelatedTypeName
