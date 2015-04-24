@@ -8,7 +8,11 @@ namespace Invert.uFrame.MVVM {
 
     public class PropertiesChildItem : PropertiesChildItemBase, ISubPropertiesConnectable
     {
-        
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
+
         public override bool CanOutputTo(IConnectable input)
         {
             if (this.OutputTo<IClassTypeNode>() != null)

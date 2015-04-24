@@ -7,6 +7,16 @@ namespace Invert.uFrame.MVVM {
     
     
     public class StateMachineNode : StateMachineNodeBase {
+        public override bool AllowInputs
+        {
+            get { return true; }
+        }
+
+        public override bool AllowOutputs
+        {
+            get { return false; }
+        }
+
         public override void Validate(List<ErrorInfo> errors)
         {
             base.Validate(errors);
@@ -17,10 +27,10 @@ namespace Invert.uFrame.MVVM {
                     Name = Graph.Name + "StartState";
                 });
             }
-            if (this.ReferenceOf<PropertiesChildItem>() == null)
-            {
-                errors.AddWarning(string.Format("StateMachine {0} is not used.", Name), this.Identifier);
-            }
+            //if (this.ReferenceOf<PropertiesChildItem>() == null)
+            //{
+            //    errors.AddWarning(string.Format("StateMachine {0} is not used.", Name), this.Identifier);
+            //}
             if (StartStateOutputSlot == null) return;
             if (StartStateOutputSlot.OutputTo<StateNode>() == null)
             {

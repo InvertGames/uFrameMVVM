@@ -9,8 +9,16 @@ namespace Invert.uFrame.MVVM {
     
     
     public class ServiceNode : ServiceNodeBase {
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
 
-   
+        public override bool AllowOutputs
+        {
+            get { return false; }
+        }
+
         public override IEnumerable<IItem> PossibleHandlers
         {
             get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p=>!(p is CommandNode)).Cast<IItem>(); }

@@ -27,7 +27,7 @@ namespace Invert.uFrame.MVVM {
                 }
             }
         }
-
+        
         //public IEnumerable<SubsystemNode> ImportedSystems
         //{
         //    get

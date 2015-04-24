@@ -17,6 +17,11 @@ namespace Invert.uFrame.MVVM {
             }
         }
 
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
+
         public string ClassName
         {
             get { return this.Name + "Command"; }

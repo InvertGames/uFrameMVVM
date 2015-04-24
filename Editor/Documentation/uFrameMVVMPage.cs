@@ -14,17 +14,18 @@ namespace Invert.uFrame.MVVM {
         
         public override void GetContent(Invert.Core.GraphDesigner.IDocumentationBuilder _) {
             base.GetContent(_);
+             _.BeginTutorial("Creating Services");
+        
         }
 
-        public TComponentType EnsureComponentInSceneStep<TComponentType>(IDocumentationBuilder builder, DiagramNode node, Action<IDocumentationBuilder> stepContent = null) where TComponentType : UnityEngine.Object
+        public TComponentType EnsureComponentInSceneStep<TComponentType>(IDocumentationBuilder builder, DiagramNode node, string description, Action<IDocumentationBuilder> stepContent = null) where TComponentType : UnityEngine.Object
         {
-            var view =
+            var view = node == null ? null :
                 UnityEngine.Object.FindObjectsOfType<TComponentType>()
                     .FirstOrDefault(p => p.GetType().FullName == node.FullName);
 
-            builder.ShowTutorialStep(new TutorialStep(string.Format("Now we need to add the {0} to the scene.", typeof(TComponentType).Name), () =>
+            builder.ShowTutorialStep(new TutorialStep(description, () =>
             {
-
                 if (view == null)
                 {
                     return string.Format("The {0} component has not been added to the scene. Create an empty game-object, and add the {0} Component to it.", node.Name);

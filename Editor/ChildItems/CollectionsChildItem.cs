@@ -15,6 +15,11 @@ namespace Invert.uFrame.MVVM {
             }
             return base.CanOutputTo(input);
         }
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
+
         public override string DefaultTypeName
         {
             get { return typeof(string).Name; }

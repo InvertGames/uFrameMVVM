@@ -7,6 +7,11 @@ namespace Invert.uFrame.MVVM {
     
     
     public class Element : ElementBase {
+        public override string Name
+        {
+            get { return "Element"; }
+            set { base.Name = value; }
+        }
     }
     
     public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

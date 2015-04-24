@@ -16,8 +16,8 @@ namespace Invert.uFrame.MVVM {
         }
 
         private string _type;
-        [JsonProperty, NodeProperty(InspectorType.TypeSelection)]
-        public string Type
+        [JsonProperty]
+        public string PropertyType
         {
             get { return string.IsNullOrEmpty(_type) ? typeof(bool).Name : _type; }
             set
@@ -47,22 +47,34 @@ namespace Invert.uFrame.MVVM {
 
         public override string RelatedType
         {
-            get { return Type; }
-            set { Type= value; }
+            get { return PropertyType; }
+            set { PropertyType= value; }
         }
 
+        [NodeProperty(InspectorType.TypeSelection)]
+        public string Type
+        {
+            get { return RelatedTypeName; }
+            set { PropertyType = value; }
+        }
 
         public override string RelatedTypeName
         {
             get
             {
-                var type = this.OutputTo<IClassTypeNode>();
-                if (type != null)
+                if (Graph!= null && Project != null)
                 {
-                    return type.ClassName;
+                    
+                
+                    var type = this.Project.AllGraphItems.OfType<IClassTypeNode>().FirstOrDefault(p=>p.Identifier == PropertyType) as IClassTypeNode;
+                    if (type != null)
+                    {
+                        return type.ClassName;
+                    }
                 }
-                return string.IsNullOrEmpty(Type) ? "bool" : Type;
+                return string.IsNullOrEmpty(PropertyType) ? typeof(Boolean).Name : PropertyType;
             }
+            set { PropertyType = value; }
         }
     }
     

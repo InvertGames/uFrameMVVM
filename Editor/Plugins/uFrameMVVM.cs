@@ -42,6 +42,9 @@ namespace Invert.uFrame.MVVM {
         {
             base.Loaded(container);
             MVVM.HasSubNode<ServiceNode>();
+            MVVM.HasSubNode<SimpleClassNode>();
+            MVVM.Name = "MVVM Kernel Graph";
+            ComputedProperty.Name = "Computed Property";
             Subsystem.HasSubNode<TypeReferenceNode>();
             Element.HasSubNode<TypeReferenceNode>();
             Subsystem.HasSubNode<EnumNode>();
@@ -51,9 +54,10 @@ namespace Invert.uFrame.MVVM {
             Service.HasSubNode<TypeReferenceNode>();
             SceneType.Name = "Scene Type";
             Subsystem.Name = "Sub System";
+            Service.Name = "Service";
+            ViewComponent.Name = "View Component";
+            StateMachine.Name = "State Machine";
             BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
-
-            
         }
     }
     public static class uFramePluginContainerExtensions
