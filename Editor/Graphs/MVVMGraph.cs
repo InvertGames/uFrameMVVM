@@ -19,11 +19,12 @@ namespace Invert.uFrame.MVVM {
         }
         public override Type FindType(string t)
         {
+            
             if (IsType(t, "SceneManagerNode"))
             {
                 return NewType("SceneTypeNode");
             }
-            return null;
+            return base.FindType(t);
         }
     }
 }

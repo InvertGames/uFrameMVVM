@@ -42,9 +42,10 @@ namespace Invert.uFrame.MVVM
         {
             get
             {
-                return this.ChildItems.OfType<PropertiesChildItem>()
-                    .SelectMany(p => p.OutputsTo<ComputedPropertyNode>())
-                    .Distinct();
+                return this.GetContainingNodesInProject(Project).OfType<ComputedPropertyNode>();
+                //return this.ChildItems.OfType<PropertiesChildItem>()
+                //    .SelectMany(p => p.OutputsTo<ComputedPropertyNode>())
+                //    .Distinct();
             }
         }
         public IEnumerable<InstancesReference> RegisteredInstances
@@ -55,10 +56,10 @@ namespace Invert.uFrame.MVVM
                     Graph.AllGraphItems.OfType<InstancesReference>().Where(p => p.SourceIdentifier == this.Identifier);
             }
         }
-        public override IEnumerable<IItem> PossibleHandlers
-        {
-            get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p => !(p is CommandNode)).Cast<IItem>(); }
-        }
+        //public override IEnumerable<IItem> PossibleHandlers
+        //{
+        //    get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p => !(p is CommandNode)).Cast<IItem>(); }
+        //}
         public IEnumerable<ITypedItem> AllProperties
         {
             get

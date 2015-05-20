@@ -31,12 +31,6 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        public virtual System.Collections.Generic.IEnumerable<Invert.Core.IItem> PossibleHandlers {
-            get {
-                return this.Project.AllGraphItems.OfType<IHandlersConnectable>().Cast<IItem>();
-            }
-        }
-        
         [Invert.Core.GraphDesigner.Section("Commands", SectionVisibility.Always, OrderIndex=3, IsNewRow=true)]
         public virtual System.Collections.Generic.IEnumerable<CommandsChildItem> Commands {
             get {
@@ -57,13 +51,6 @@ namespace Invert.uFrame.MVVM {
                 return ChildItems.OfType<CollectionsChildItem>();
             }
         }
-        
-        //[Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
-        //public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
-        //    get {
-        //        return ChildItems.OfType<HandlersReference>();
-        //    }
-        //}
     }
     
     public partial interface IElementConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
@@ -156,7 +143,7 @@ namespace Invert.uFrame.MVVM {
     public partial interface IViewConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode, ITransitionsConnectable {
+    public class ComputedPropertyNodeBase : Invert.Core.GraphDesigner.GenericNode, ITransitionsConnectable, IComputedPropertyConnectable {
         
         public override bool AllowMultipleInputs {
             get {
@@ -407,7 +394,7 @@ namespace Invert.uFrame.MVVM {
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=4, HasPredefinedOptions=false, IsNewRow=true)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=0, HasPredefinedOptions=false, IsNewRow=true)]
         public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
             get {
                 return ChildItems.OfType<HandlersReference>();

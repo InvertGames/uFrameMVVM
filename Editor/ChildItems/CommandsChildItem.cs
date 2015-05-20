@@ -8,6 +8,12 @@ namespace Invert.uFrame.MVVM {
 
     public class CommandsChildItem : CommandsChildItemBase, ICommandClassItem, IClassTypeNode
     {
+        [InspectorProperty]
+        public bool Publish
+        {
+            get { return this["Publish"]; }
+            set { this["Publish"] = value; }
+        }
 
         public CommandNode OutputCommand
         {

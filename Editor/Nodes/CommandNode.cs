@@ -15,7 +15,7 @@ namespace Invert.uFrame.MVVM {
         {
             get { return Name + "Command"; }
         }
-
+        
         public override void Validate(List<ErrorInfo> errors)
         {
             base.Validate(errors);

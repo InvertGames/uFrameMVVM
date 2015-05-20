@@ -7,6 +7,11 @@ namespace Invert.uFrame.MVVM {
     
     
     public class StateMachineNode : StateMachineNodeBase {
+        public override bool UseStraightLines
+        {
+            get { return true; }
+        }
+
         public override bool AllowInputs
         {
             get { return true; }
