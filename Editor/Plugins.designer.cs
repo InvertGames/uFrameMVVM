@@ -163,7 +163,7 @@ namespace Invert.uFrame.MVVM {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
         
-        public override void Initialize(Invert.Core.uFrameContainer container) {
+        public override void Initialize(Invert.IOC.UFrameContainer container) {
             container.RegisterInstance<IDocumentationProvider>(new uFrameMVVMDocumentationProvider(), "uFrameMVVM");
             container.RegisterInstance<IEditorCommand>(GetCommandsSelectionCommand(), typeof(CommandsChildItem).Name + "TypeSelection");;
             container.AddTypeItem<CommandsChildItem>();
@@ -228,6 +228,7 @@ namespace Invert.uFrame.MVVM {
             container.Connectable<CommandsChildItem,BindingsReference>();
             container.Connectable<CommandsChildItem,TransitionsChildItem>();
             container.Connectable<PropertiesChildItem,BindingsReference>();
+            container.Connectable<PropertiesChildItem,ComputedPropertyNode>();
             container.Connectable<CollectionsChildItem,BindingsReference>();
             container.Connectable<ViewNode,ViewComponentNode>();
             container.Connectable<ComputedPropertyNode,TransitionsChildItem>();

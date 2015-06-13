@@ -6,7 +6,7 @@ namespace Invert.uFrame.MVVM {
     using Invert.Core.GraphDesigner;
 
 
-    public class PropertiesChildItem : PropertiesChildItemBase, ISubPropertiesConnectable
+    public class PropertiesChildItem : PropertiesChildItemBase, ISubPropertiesConnectable, IComputedPropertyConnectable
     {
         public override bool AllowInputs
         {
@@ -15,6 +15,7 @@ namespace Invert.uFrame.MVVM {
 
         public override bool CanOutputTo(IConnectable input)
         {
+            if (input is ComputedPropertyNode) return true;
             if (this.OutputTo<IClassTypeNode>() != null)
             {
                 return false;

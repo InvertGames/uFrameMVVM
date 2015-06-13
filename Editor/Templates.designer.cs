@@ -17,7 +17,7 @@ namespace Invert.uFrame.MVVM {
     using System.CodeDom;
     
     
-    [TemplateClass(Location=MemberGeneratorLocation.DesignerFile, AutoInherit=true, ClassNameFormat="{0}Command")]
+    [TemplateClass(Location=TemplateLocation.DesignerFile, AutoInherit=true, ClassNameFormat="{0}Command")]
     public class CommandClassTemplateBase : IClassTemplate<CommandNode> {
         
         private Invert.Core.GraphDesigner.TemplateContext<CommandNode> _Ctx;

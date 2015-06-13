@@ -10,6 +10,11 @@ namespace Invert.uFrame.MVVM {
 
     public class BindingsReference : BindingsReferenceBase, IBindingsConnectable
     {
+        public override bool AllowInputs
+        {
+            get { return false; }
+        }
+
         private uFrameBindingType _bindingType;
           [JsonProperty]
         public string BindingName { get; set; }

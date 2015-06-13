@@ -59,6 +59,11 @@ namespace Invert.uFrame.MVVM {
             }
         }
 
+        public bool IsDerivedOnly
+        {
+            get { return BaseNode != null && ElementInputSlot.InputFrom<ElementNode>() == null; }
+        }
+
         public ElementNode Element
         {
             get

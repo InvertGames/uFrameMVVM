@@ -34,7 +34,7 @@ namespace Invert.uFrame.MVVM {
     public partial interface ICommandsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class PropertiesChildItemBase : GenericTypedChildItem, IBindingsConnectable {
+    public class PropertiesChildItemBase : GenericTypedChildItem, IBindingsConnectable, IComputedPropertyConnectable {
         
         public override bool AllowMultipleInputs {
             get {

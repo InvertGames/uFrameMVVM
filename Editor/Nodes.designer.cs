@@ -27,7 +27,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -66,7 +66,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -96,7 +96,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -147,7 +147,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -178,7 +178,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -215,7 +215,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -233,7 +233,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -259,7 +259,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -297,7 +297,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -328,7 +328,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -352,7 +352,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         
@@ -378,7 +378,7 @@ namespace Invert.uFrame.MVVM {
         
         public override bool AllowMultipleInputs {
             get {
-                return false;
+                return true;
             }
         }
         

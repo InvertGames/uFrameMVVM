@@ -2,6 +2,7 @@ using System.CodeDom;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
+using Invert.IOC;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,11 +14,12 @@ namespace Invert.uFrame.MVVM {
     using System.Linq;
     using Invert.Core;
     using Invert.Core.GraphDesigner;
+
     
     
     public class uFrameMVVM : uFrameMVVMBase {
 
-        public static Invert.Core.RegisteredInstance[] BindingTypes { get; set; }
+        public static RegisteredInstance[] BindingTypes { get; set; }
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
             base.GetCommandsSelectionCommand();
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = true };
@@ -32,13 +34,14 @@ namespace Invert.uFrame.MVVM {
             base.GetCollectionsSelectionCommand();
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
-        
-        public override void Initialize(Invert.Core.uFrameContainer container) {
+
+        public override void Initialize(UFrameContainer container)
+        {
             base.Initialize(container);
             //BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
         }
 
-        public override void Loaded(uFrameContainer container)
+        public override void Loaded(UFrameContainer container)
         {
             base.Loaded(container);
             MVVM.HasSubNode<ServiceNode>();
@@ -60,6 +63,7 @@ namespace Invert.uFrame.MVVM {
             StateMachine.Name = "State Machine";
             BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
             container.AddItemFlag<CommandsChildItem>("Publish", Color.green);
+            container.RegisterConnectable<PropertiesChildItem, ComputedPropertyNode>();//  container.Connectable<PropertiesChildItem, ComputedPropertyNode>();
         }
     }
     public static class uFramePluginContainerExtensions
@@ -159,9 +163,16 @@ namespace Invert.uFrame.MVVM {
 
                     methodInvoke.Parameters.Add(new CodeSnippetExpression(String.Format((string)"this.{0}", (object)method.Name)));
                     createBindingSignatureParams.Context.Members.Add(method);
-                    if (HandlerImplementation != null && !createBindingSignatureParams.DontImplement)
+                    if (HandlerImplementation != null )
                     {
-                        HandlerImplementation(new BindingHandlerArgs() { View = createBindingSignatureParams.ElementView, SourceItem = createBindingSignatureParams.SourceItem, Method = method, Decleration = createBindingSignatureParams.Context });
+                        HandlerImplementation(new BindingHandlerArgs()
+                        {
+                            View = createBindingSignatureParams.ElementView, 
+                            SourceItem = createBindingSignatureParams.SourceItem, 
+                            Method = method, 
+                            Decleration = createBindingSignatureParams.Context,
+                            IsDesignerFile = !createBindingSignatureParams.DontImplement
+                        });
                     }
                     if (createBindingSignatureParams.DontImplement)
                     {
@@ -170,7 +181,7 @@ namespace Invert.uFrame.MVVM {
                     createBindingSignatureParams.Ctx.AddMemberOutput(createBindingSignatureParams.BindingsReference,
                         new TemplateMemberResult(null,
                             null,
-                            new TemplateMethod(MemberGeneratorLocation.Both), 
+                            new GenerateMethod(TemplateLocation.Both), 
                             method,
                             createBindingSignatureParams.Ctx.CurrentDecleration));
                 }
@@ -318,5 +329,7 @@ namespace Invert.uFrame.MVVM {
         /// The current decleration at which the binding is being created inside.  Ie: The View class
         /// </summary>
         public CodeTypeDeclaration Decleration { get; set; }
+
+        public bool IsDesignerFile { get; set; }
     }
 }
