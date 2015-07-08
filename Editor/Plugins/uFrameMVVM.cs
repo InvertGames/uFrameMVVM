@@ -47,7 +47,11 @@ namespace Invert.uFrame.MVVM {
             MVVM.HasSubNode<ServiceNode>();
             MVVM.HasSubNode<SimpleClassNode>();
             MVVM.HasSubNode<TypeReferenceNode>();
+
             MVVM.Name = "MVVM Kernel Graph";
+       
+            
+
             ComputedProperty.Name = "Computed Property";
             Subsystem.HasSubNode<TypeReferenceNode>();
             Element.HasSubNode<TypeReferenceNode>();
@@ -183,7 +187,7 @@ namespace Invert.uFrame.MVVM {
                             null,
                             new GenerateMethod(TemplateLocation.Both), 
                             method,
-                            createBindingSignatureParams.Ctx.CurrentDecleration));
+                            createBindingSignatureParams.Ctx.CurrentDeclaration));
                 }
                 else if (typeof(ICollection).IsAssignableFrom(parameter.ParameterType))
                 {

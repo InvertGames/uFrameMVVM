@@ -29,7 +29,7 @@ namespace Invert.uFrame.MVVM {
 
         public override IEnumerable<IItem> PossibleSubProperties
         {
-            get { return InputProperties.Select(p => p.RelatedTypeNode).OfType<ElementNode>().SelectMany(p => p.AllProperties).Cast<ISubPropertiesConnectable>().Cast<IItem>(); }
+            get { return InputProperties.Select(p => p.RelatedTypeNode).OfType<ElementNode>().SelectMany(p => p.AllProperties).Cast<IItem>(); }
         }
 
         //public override IEnumerable<IComputedPropertyConnectable> PossibleProperties

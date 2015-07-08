@@ -7,9 +7,26 @@ namespace Invert.uFrame.MVVM {
     
     
     public class Element : ElementBase {
+    
+
         public override string Name
         {
-            get { return "Element"; }
+            get
+            {
+                var node = this.Node as ViewNode;
+                
+                if (node != null)
+                {
+                    var element = node.Element;
+                    if (element != null)
+                    {
+                        return "Element: " + element.Name;
+                    }
+                    
+                }
+              
+                return "Element";
+            }
             set { base.Name = value; }
         }
     }

@@ -9,7 +9,7 @@ namespace Invert.uFrame.MVVM {
     public class SceneProperties : ScenePropertiesBase {
         public override string Name
         {
-            get { return base.Name; }
+            get { return "Scene Properties"; }
             set { base.Name = value; }
         }
     }

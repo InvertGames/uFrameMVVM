@@ -45,8 +45,8 @@ namespace Invert.uFrame.MVVM {
         
         public virtual void TemplateSetup() {
             if (Ctx.IsDesignerFile) {
-                Ctx.CurrentDecleration.BaseTypes.Clear();
-                Ctx.CurrentDecleration.BaseTypes.Add(new CodeTypeReference("ViewModelCommand"));
+                Ctx.CurrentDeclaration.BaseTypes.Clear();
+                Ctx.CurrentDeclaration.BaseTypes.Add(new CodeTypeReference("ViewModelCommand"));
             }
         }
     }

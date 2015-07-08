@@ -11,6 +11,18 @@ namespace Invert.uFrame.MVVM {
         {
             get { return true; }
         }
+
+        public override void Validate(List<ErrorInfo> errors)
+        {
+            base.Validate(errors);
+            foreach (var item in StateTransitions)
+            {
+                if (item.OutputTo<StateNode>() == null)
+                {
+                    errors.AddError("Transition is not connected to a state", item.Identifier);
+                }
+            }
+        }
     }
     
     public partial interface IStateConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
