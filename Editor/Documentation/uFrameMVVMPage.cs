@@ -28,7 +28,7 @@ namespace Invert.uFrame.MVVM {
             {
                 if (view == null)
                 {
-                    return string.Format("The {0} component has not been added to the scene. Create an empty game-object, and add the {0} Component to it.", node == null ? typeof(TComponentType).Name :node.Name);
+                    return string.Format("The {0} component has not been added to the scene.", node == null ? typeof(TComponentType).Name :node.Name);
                 }
                 return null;
             })
