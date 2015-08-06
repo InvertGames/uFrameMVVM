@@ -48,13 +48,12 @@ namespace Invert.uFrame.MVVM {
             {
                 errors.AddError("This view must have an element.", this.Identifier, () =>
                 {
-                    var node = Project.NodeItems.OfType<IDiagramFilter>()
-                        .FirstOrDefault(p => p.GetContainingNodes(this.Project).Contains(this)) as ElementNode;
+                    var node = Repository.AllOf<IDiagramFilter>()
+                        .FirstOrDefault(p => p.GetContainingNodes().Contains(this)) as ElementNode;
                     if (node != null)
                     {
-                        Graph.AddConnection(node, this.ElementInputSlot);
+                        Graph.AddConnection(node, ElementInputSlot);
                     }
-
                 });
             }
         }

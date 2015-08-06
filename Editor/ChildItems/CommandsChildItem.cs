@@ -61,7 +61,7 @@ namespace Invert.uFrame.MVVM {
         {
             base.Validate(info);
             var otherCommand =
-                Node.Project.AllGraphItems.OfType<CommandsChildItem>()
+                Node.Repository.All<CommandsChildItem>()
                     .FirstOrDefault(p => p != this && p.Name == this.Name && p.OutputCommand == null);
 
             if (otherCommand != null)

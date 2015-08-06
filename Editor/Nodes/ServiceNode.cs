@@ -21,7 +21,7 @@ namespace Invert.uFrame.MVVM {
 
         public override IEnumerable<IItem> PossibleHandlers
         {
-            get { return this.Project.AllGraphItems.OfType<IClassTypeNode>().Where(p=>!(p is CommandNode)).Cast<IItem>(); }
+            get { return this.Repository.AllOf<IClassTypeNode>().Where(p=>!(p is CommandNode)).Cast<IItem>(); }
         }
 
 

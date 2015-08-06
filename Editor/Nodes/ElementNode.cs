@@ -11,17 +11,7 @@ namespace Invert.uFrame.MVVM
 
     public class ElementNode : ElementNodeBase, IViewConnectable
     {
-        public IEnumerable<ElementNode> RelatedElements
-        {
-            get
-            {
-                return this.GetParentNodes()
-                    .OfType<SubsystemNode>()
-                    .SelectMany(p => p.GetContainingNodesInProject(p.Project))
-                    .OfType<ElementNode>()
-                    .Distinct();
-            }
-        }
+
         public override void Validate(List<ErrorInfo> errors)
         {
             base.Validate(errors);
@@ -42,7 +32,7 @@ namespace Invert.uFrame.MVVM
         {
             get
             {
-                return this.GetContainingNodesInProject(Project).OfType<ComputedPropertyNode>();
+                return this.FilterNodes().OfType<ComputedPropertyNode>();
                 //return this.ChildItems.OfType<PropertiesChildItem>()
                 //    .SelectMany(p => p.OutputsTo<ComputedPropertyNode>())
                 //    .Distinct();

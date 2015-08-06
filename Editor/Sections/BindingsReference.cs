@@ -1,5 +1,7 @@
 
 
+using Invert.Json;
+
 namespace Invert.uFrame.MVVM {
     using System;
     using System.Collections;

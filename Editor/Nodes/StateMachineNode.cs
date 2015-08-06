@@ -44,7 +44,7 @@ namespace Invert.uFrame.MVVM {
         }
         public IEnumerable<StateNode> States
         {
-            get { return this.GetContainingNodes(Graph).OfType<StateNode>(); }
+            get { return this.GetContainingNodes().OfType<StateNode>(); }
         }
 
     }

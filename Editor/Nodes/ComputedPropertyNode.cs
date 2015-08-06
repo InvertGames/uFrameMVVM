@@ -1,4 +1,5 @@
 using Invert.Core;
+using Invert.Json;
 
 namespace Invert.uFrame.MVVM {
     using System;
@@ -58,24 +59,24 @@ namespace Invert.uFrame.MVVM {
             set { PropertyType = value; }
         }
 
-        public override string RelatedTypeName
-        {
-            get
-            {
-                if (Graph!= null && Project != null)
-                {
+        //public override string RelatedTypeName
+        //{
+        //    get
+        //    {
+        //        if (Graph!= null && Project != null)
+        //        {
                     
                 
-                    var type = this.Project.AllGraphItems.OfType<IClassTypeNode>().FirstOrDefault(p=>p.Identifier == PropertyType) as IClassTypeNode;
-                    if (type != null)
-                    {
-                        return type.ClassName;
-                    }
-                }
-                return string.IsNullOrEmpty(PropertyType) ? typeof(Boolean).Name : PropertyType;
-            }
-            set { PropertyType = value; }
-        }
+        //            var type = this.Project.AllGraphItems.OfType<IClassTypeNode>().FirstOrDefault(p=>p.Identifier == PropertyType) as IClassTypeNode;
+        //            if (type != null)
+        //            {
+        //                return type.ClassName;
+        //            }
+        //        }
+        //        return string.IsNullOrEmpty(PropertyType) ? typeof(Boolean).Name : PropertyType;
+        //    }
+        //    set { PropertyType = value; }
+        //}
     }
     
     public partial interface IComputedPropertyConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
