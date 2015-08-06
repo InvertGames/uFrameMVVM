@@ -10,5 +10,10 @@ namespace Invert.uFrame.MVVM {
         public ElementNodeViewModel(ElementNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
                 base(graphItemObject, diagramViewModel) {
         }
+
+        public override string IconName
+        {
+            get { return "ElementIcon"; }
+        }
     }
 }

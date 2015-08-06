@@ -24,6 +24,8 @@ namespace Invert.uFrame.MVVM {
                 errors.AddError("This node must be linked to a Element Command, if you want a generic command use a 'SimpleClass'.", Identifier);
             }
         }
+
+
     }
     
     public partial interface ICommandConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

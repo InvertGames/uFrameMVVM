@@ -1,3 +1,5 @@
+using Invert.Core.GraphDesigner;
+
 namespace Invert.uFrame.MVVM {
     using System;
     using System.Collections;
@@ -9,6 +11,14 @@ namespace Invert.uFrame.MVVM {
         
         public CommandNodeViewModel(CommandNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
                 base(graphItemObject, diagramViewModel) {
+        }
+
+        public override INodeStyleSchema StyleSchema
+        {
+            get
+            {
+                return MinimalisticStyleSchema;
+            }
         }
     }
 }

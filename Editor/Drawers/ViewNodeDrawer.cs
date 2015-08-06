@@ -7,7 +7,7 @@ namespace Invert.uFrame.MVVM {
     
     
     public class ViewNodeDrawer : GenericNodeDrawer<ViewNode,ViewNodeViewModel> {
-        
+
         public ViewNodeDrawer(ViewNodeViewModel viewModel) : 
                 base(viewModel) {
         }
