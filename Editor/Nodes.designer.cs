@@ -117,7 +117,7 @@ namespace Invert.uFrame.MVVM {
         public virtual SceneProperties ScenePropertiesInputSlot {
             get {
                 if (_SceneProperties == null) {
-                    _SceneProperties = new SceneProperties() { Node = this };
+                    _SceneProperties = new SceneProperties() { Repository = Repository, Node = this };
                 }
                 return _SceneProperties;
             }
@@ -130,7 +130,7 @@ namespace Invert.uFrame.MVVM {
         public virtual Element ElementInputSlot {
             get {
                 if (_Element == null) {
-                    _Element = new Element() { Node = this };
+                    _Element = new Element() { Repository = Repository, Node = this };
                 }
                 return _Element;
             }
@@ -280,7 +280,7 @@ namespace Invert.uFrame.MVVM {
         public virtual StartState StartStateOutputSlot {
             get {
                 if (_StartState == null) {
-                    _StartState = new StartState() { Node = this };
+                    _StartState = new StartState() { Repository = Repository, Node = this };
                 }
                 return _StartState;
             }
