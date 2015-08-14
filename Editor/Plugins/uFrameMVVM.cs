@@ -20,19 +20,20 @@ namespace Invert.uFrame.MVVM {
     public class uFrameMVVM : uFrameMVVMBase {
 
         public static RegisteredInstance[] BindingTypes { get; set; }
-        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
+        public override Invert.Core.GraphDesigner.SelectTypeCommand GetCommandsSelectionCommand() {
             base.GetCommandsSelectionCommand();
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = true };
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = true };
         }
         
-        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetPropertiesSelectionCommand() {
+        public override Invert.Core.GraphDesigner.SelectTypeCommand GetPropertiesSelectionCommand() {
             base.GetPropertiesSelectionCommand();
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
-        
-        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCollectionsSelectionCommand() {
+
+        public override Invert.Core.GraphDesigner.SelectTypeCommand GetCollectionsSelectionCommand()
+        {
             base.GetCollectionsSelectionCommand();
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
 
         public override void Initialize(UFrameContainer container)

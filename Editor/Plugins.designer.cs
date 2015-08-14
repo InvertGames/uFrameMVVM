@@ -150,26 +150,27 @@ namespace Invert.uFrame.MVVM {
                 _Service = value;
             }
         }
-        
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+
+        public virtual Invert.Core.GraphDesigner.SelectTypeCommand GetCommandsSelectionCommand()
+        {
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
-        
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetPropertiesSelectionCommand() {
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+
+        public virtual Invert.Core.GraphDesigner.SelectTypeCommand GetPropertiesSelectionCommand()
+        {
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
-        
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetCollectionsSelectionCommand() {
-            return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
+
+        public virtual Invert.Core.GraphDesigner.SelectTypeCommand GetCollectionsSelectionCommand()
+        {
+            return new SelectTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
         
         public override void Initialize(Invert.IOC.UFrameContainer container) {
             container.RegisterInstance<IDocumentationProvider>(new uFrameMVVMDocumentationProvider(), "uFrameMVVM");
-            container.RegisterInstance<IEditorCommand>(GetCommandsSelectionCommand(), typeof(CommandsChildItem).Name + "TypeSelection");;
+            
             container.AddTypeItem<CommandsChildItem>();
-            container.RegisterInstance<IEditorCommand>(GetPropertiesSelectionCommand(), typeof(PropertiesChildItem).Name + "TypeSelection");;
             container.AddTypeItem<PropertiesChildItem>();
-            container.RegisterInstance<IEditorCommand>(GetCollectionsSelectionCommand(), typeof(CollectionsChildItem).Name + "TypeSelection");;
             container.AddTypeItem<CollectionsChildItem>();
             container.AddItem<BindingsReference>();
             container.AddItem<SubPropertiesReference>();
