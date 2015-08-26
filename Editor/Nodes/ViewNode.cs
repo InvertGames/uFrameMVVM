@@ -48,8 +48,8 @@ namespace Invert.uFrame.MVVM {
             {
                 errors.AddError("This view must have an element.", this.Identifier, () =>
                 {
-                    var node = Repository.AllOf<IDiagramFilter>()
-                        .FirstOrDefault(p => p.GetContainingNodes().Contains(this)) as ElementNode;
+                    var node = Repository.AllOf<IGraphFilter>()
+                        .FirstOrDefault(p => p.FilterNodes.Contains(this)) as ElementNode;
                     if (node != null)
                     {
                         Graph.AddConnection(node, ElementInputSlot);

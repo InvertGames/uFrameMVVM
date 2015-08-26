@@ -18,7 +18,7 @@ namespace Invert.uFrame.MVVM {
         
         }
 
-        public TComponentType EnsureComponentInSceneStep<TComponentType>(IDocumentationBuilder builder, DiagramNode node, string description, Action<IDocumentationBuilder> stepContent = null) where TComponentType : UnityEngine.Object
+        public TComponentType EnsureComponentInSceneStep<TComponentType>(IDocumentationBuilder builder, GraphNode node, string description, Action<IDocumentationBuilder> stepContent = null) where TComponentType : UnityEngine.Object
         {
             var view = node == null ? UnityEngine.Object.FindObjectsOfType<TComponentType>().FirstOrDefault() :
                 UnityEngine.Object.FindObjectsOfType<TComponentType>()

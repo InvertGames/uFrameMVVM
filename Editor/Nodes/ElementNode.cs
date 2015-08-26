@@ -32,7 +32,7 @@ namespace Invert.uFrame.MVVM
         {
             get
             {
-                return this.FilterNodes().OfType<ComputedPropertyNode>();
+                return this.FilterNodes.OfType<ComputedPropertyNode>();
                 //return this.ChildItems.OfType<PropertiesChildItem>()
                 //    .SelectMany(p => p.OutputsTo<ComputedPropertyNode>())
                 //    .Distinct();
