@@ -1,4 +1,5 @@
 using Invert.Core;
+using Invert.Data;
 using Invert.Json;
 
 namespace Invert.uFrame.MVVM {
@@ -23,8 +24,7 @@ namespace Invert.uFrame.MVVM {
             get { return string.IsNullOrEmpty(_type) ? typeof(bool).Name : _type; }
             set
             {
-                TrackChange(new TypeChange(this,_type, value));
-                _type = value;
+                this.Changed("Type", ref _type,value);
             }
         }
 
