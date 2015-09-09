@@ -19,7 +19,7 @@ namespace Invert.uFrame.MVVM {
             {
                 if (item.OutputTo<StateNode>() == null)
                 {
-                    errors.AddError("Transition is not connected to a state", item.Identifier);
+                    errors.AddError("Transition is not connected to a state", item.Node);
                 }
             }
         }

@@ -66,7 +66,7 @@ namespace Invert.uFrame.MVVM {
 
             if (otherCommand != null)
             {
-                info.AddError(string.Format("The command {0} is already being used on node {1}.", this.Name, otherCommand.Node.Name),this.Identifier,
+                info.AddError(string.Format("The command {0} is already being used on node {1}.", this.Name, otherCommand.Node.Name),this.Node,
                     () =>
                     {
                         Name = this.Node.Name + this.Name;

@@ -17,7 +17,7 @@ namespace Invert.uFrame.MVVM {
             base.Validate(errors);
             if (View == null)
             {
-                errors.AddError(string.Format("View must be connected to the {0} ViewComponent.",  this.Name));
+                errors.AddError(string.Format("View must be connected to the {0} ViewComponent.",  this.Name), this);
             }
         }
     }

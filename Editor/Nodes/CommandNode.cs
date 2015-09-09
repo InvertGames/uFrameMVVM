@@ -21,7 +21,7 @@ namespace Invert.uFrame.MVVM {
             base.Validate(errors);
             if (this.ReferenceOf<CommandsChildItem>() == null)
             {
-                errors.AddError("This node must be linked to a Element Command, if you want a generic command use a 'SimpleClass'.", Identifier);
+                errors.AddError("This node must be linked to a Element Command, if you want a generic command use a 'SimpleClass'.", this);
             }
         }
     }

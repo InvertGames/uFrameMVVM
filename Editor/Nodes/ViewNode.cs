@@ -46,7 +46,7 @@ namespace Invert.uFrame.MVVM {
             base.Validate(errors);
             if (Element == null)
             {
-                errors.AddError("This view must have an element.", this.Identifier, () =>
+                errors.AddError("This view must have an element.", this, () =>
                 {
                     var node = Repository.AllOf<IGraphFilter>()
                         .FirstOrDefault(p => p.FilterNodes.Contains(this)) as ElementNode;

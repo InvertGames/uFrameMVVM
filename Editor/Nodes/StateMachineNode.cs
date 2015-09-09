@@ -27,7 +27,7 @@ namespace Invert.uFrame.MVVM {
             base.Validate(errors);
             if (Name.ToLower() == "startstate")
             {
-                errors.AddError("StartState is reserved", Identifier, () =>
+                errors.AddError("StartState is reserved", this, () =>
                 {
                     Name = Graph.Name + "StartState";
                 });
@@ -39,7 +39,7 @@ namespace Invert.uFrame.MVVM {
             if (StartStateOutputSlot == null) return;
             if (StartStateOutputSlot.OutputTo<StateNode>() == null)
             {
-                errors.AddError("State Machine requires a start state.", this.Identifier);
+                errors.AddError("State Machine requires a start state.", this);
             }
         }
         public IEnumerable<StateNode> States

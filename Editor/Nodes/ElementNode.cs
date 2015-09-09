@@ -22,7 +22,7 @@ namespace Invert.uFrame.MVVM
                 {
                     if (p1.Name == p2.Name && p1 != p2)
                     {
-                        errors.AddError(string.Format("Duplicate \"{0}\"", p1.Name), this.Identifier);
+                        errors.AddError(string.Format("Duplicate \"{0}\"", p1.Name), this);
                     }
                 }
             }
