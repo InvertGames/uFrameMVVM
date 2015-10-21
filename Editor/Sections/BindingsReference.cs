@@ -28,7 +28,7 @@ namespace Invert.uFrame.MVVM {
             get
             {
                 return
-                    _bindingType ?? (_bindingType = uFrameMVVM.BindingTypes.Where(p => p.Name == BindingName).Select(p => p.Instance).FirstOrDefault() as uFrameBindingType);
+                    _bindingType ?? (_bindingType = uFrameMVVM.BindingTypes.Where(p => p.Key.Item2 == BindingName).Select(p => p.Value).FirstOrDefault() as uFrameBindingType);
             }
             set { _bindingType = value; }
         }

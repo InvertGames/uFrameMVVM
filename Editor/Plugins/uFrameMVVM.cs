@@ -19,7 +19,7 @@ namespace Invert.uFrame.MVVM {
     
     public class uFrameMVVM : uFrameMVVMBase {
 
-        public static RegisteredInstance[] BindingTypes { get; set; }
+        public static KeyValuePair<Tuple<Type, string>, object>[] BindingTypes { get; set; }
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCommandsSelectionCommand() {
             base.GetCommandsSelectionCommand();
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = true };
@@ -65,7 +65,7 @@ namespace Invert.uFrame.MVVM {
             Service.Name = "Service";
             ViewComponent.Name = "View Component";
             StateMachine.Name = "State Machine";
-            BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Base == typeof(uFrameBindingType)).ToArray();
+            BindingTypes = InvertGraphEditor.Container.Instances.Where(p => p.Key.Item1 == typeof(uFrameBindingType)).ToArray();
             container.AddItemFlag<CommandsChildItem>("Publish", Color.green);
             container.RegisterConnectable<PropertiesChildItem, ComputedPropertyNode>();//  container.Connectable<PropertiesChildItem, ComputedPropertyNode>();
         }

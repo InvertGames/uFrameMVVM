@@ -19,11 +19,11 @@ namespace Invert.uFrame.MVVM {
                     foreach (var mapping in uFrameMVVM.BindingTypes)
                     {
                         
-                        var bindableType = mapping.Instance as uFrameBindingType;
+                        var bindableType = mapping.Value as uFrameBindingType;
                         if (bindableType == null) continue;
                         if (!bindableType.CanBind(item)) continue;
                         if (
-                            Bindings.FirstOrDefault(p => p.BindingName == mapping.Name
+                            Bindings.FirstOrDefault(p => p.BindingName == mapping.Key.Item2
                                 && p.BindingType == bindableType && p.SourceIdentifier == item.Identifier) != null)
                             continue;
 
@@ -31,7 +31,7 @@ namespace Invert.uFrame.MVVM {
                         {
                             Node = this, 
                             SourceIdentifier = item.Identifier,
-                            BindingName = mapping.Name,
+                            BindingName = mapping.Key.Item2,
                             BindingType = bindableType,
                            // Name = string.Format(bindableType.DisplayFormat, item.Name)
                         };
